@@ -1,4 +1,9 @@
+
 # strapi-tiptap-editor
+![npm](https://img.shields.io/npm/v/strapi-tiptap-editor)
+![NPM](https://img.shields.io/npm/l/strapi-tiptap-editor)
+![GitHub issues](https://img.shields.io/github/issues/dasmikko/strapi-tiptap-editor)
+
 A drop-in replacement for the strapi editor.
 
 ![Screenshot of the editor](./screenshot.png?raw=true "Screenshot")
