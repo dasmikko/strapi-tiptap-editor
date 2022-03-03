@@ -1,12 +1,12 @@
 {
   "name": "strapi-tiptap-editor",
-  "version": "0.5.1",
+  "version": "0.5.4",
   "description": "A drop-in replacement for the strapi editor",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "strapi": {
-    "name": "Strapi Tiptap editor",
+    "name": "strapi-tiptap-editor",
     "description": "A drop-in replacement for the strapi editor",
     "kind": "plugin"
   },
