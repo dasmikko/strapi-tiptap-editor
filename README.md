@@ -1,5 +1,5 @@
 
-# strapi-tiptap-editor
+# Strapi TipTap Editor
 ![npm](https://img.shields.io/npm/v/strapi-tiptap-editor)
 ![NPM](https://img.shields.io/npm/l/strapi-tiptap-editor)
 ![GitHub issues](https://img.shields.io/github/issues/dasmikko/strapi-tiptap-editor)
