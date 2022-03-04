@@ -53,3 +53,8 @@ You are now using the new editor!
 You can verify it, by looking at the plugins page inside Strapi
 
 ![Strapi plugin page](./screenshot2.png?raw=true "Screenshot")
+
+## I'm having issues, or have a suggestion!
+Ouch, that's no good if you have an issue!
+Suggestions are more than welcome, and feel free to go to the issues tab, and submit your issue/suggestion, and I will look at it as soon as possible!
+
