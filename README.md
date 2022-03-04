@@ -20,6 +20,11 @@ The project is fully usable, but I still consider it beta at this stage.
 ## Why make this?
 The main reason was, that I thought that the built in WYSIWYG editor in strapi could be better. I needed to support tables and css columns. Another requirement was also make it outputted pure html, and has a nice and easy to user interface. I don't want to keep toggling between editor mode and preview mode, just to see what I'm making.
 
+## Requirements
+It's build with Strapi **v4** in mind. 
+
+It has been tested to work with **v4.1.1** and I assume it should keep working with later versions.
+
 
 ## Cool! But how do I use it?
 Luckily it's very easy to use. Just follow these instructions:
