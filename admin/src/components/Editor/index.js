@@ -392,7 +392,7 @@ const FloatingMenuComponent = ({editor}) => {
 
 const Editor = ({ onChange, name, value, disabled, editor, toggleMediaLib }) => {
   return (
-    <Wrapper style={{height: '600px;'}}>
+    <Wrapper>
       <Box hasRadius={true} overflow={'hidden'} borderWidth="1px" borderStyle="solid" borderColor="neutral300">
         <Toolbar editor={editor} toggleMediaLib={toggleMediaLib}/>
         <BubbleMenuComponent editor={editor} toggleMediaLib={toggleMediaLib}/>

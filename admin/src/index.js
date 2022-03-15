@@ -1,8 +1,6 @@
-import { prefixPluginTranslations } from '@strapi/helper-plugin';
-import pluginPkg from '../../package.json';
-import pluginId from './pluginId';
-import Initializer from './components/Initializer';
-import Wysiwyg from './components/Wysiwyg/'
+import pluginPkg from "../../package.json";
+import Wysiwyg from "./components/Wysiwyg";
+import pluginId from "./pluginId";
 
 const name = pluginPkg.strapi.name;
 
@@ -12,11 +10,9 @@ export default {
 
     app.registerPlugin({
       id: pluginId,
-      initializer: Initializer,
-      isReady: false,
-      name: 'Strapi Tiptap editor',
+      isReady: true,
+      name,
     });
   },
-
-  bootstrap(app) {},
+  bootstrap() {},
 };

@@ -5,7 +5,7 @@ import { Box } from '@strapi/design-system/Box';
 import { Button } from '@strapi/design-system/Button';
 import { Typography } from '@strapi/design-system/Typography';
 import Landscape from '@strapi/icons/Landscape';
-import MediaLib from '../MediaLib';
+import MediaLib from '../MediaLib/index.js';
 import Editor from '../Editor';
 import { useIntl } from 'react-intl';
 
