@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Stack } from '@strapi/design-system/Stack';
 import { Box } from '@strapi/design-system/Box';
@@ -69,6 +69,8 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
 
   const handleToggleMediaLib = () => setMediaLibVisible(prev => !prev);
 
+
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -96,11 +98,16 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
         types: ['paragraph']
       }),
     ],
-
-    content: value,
     onUpdate(ctx) {
       onChange({ target: { name, value: ctx.editor.getHTML() } })
     },
+  })
+
+  // Update content if value is changed outside
+  useEffect(() => {
+    if (editor !== null && editor.getHTML() !== value) {
+      editor.commands.setContent(value)
+    }
   })
 
   const handleChangeAssets = assets => {
@@ -125,42 +132,42 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
 
 
   return (
-    <>
-      <Stack size={1}>
-        <Box>
-          <Typography variant="pi" fontWeight="bold">
-            {formatMessage(intlLabel)}
-          </Typography>
-          {required &&
-            <Typography variant="pi" fontWeight="bold" textColor="danger600">*</Typography>
+      <>
+        <Stack size={1}>
+          <Box>
+            <Typography variant="pi" fontWeight="bold">
+              {formatMessage(intlLabel)}
+            </Typography>
+            {required &&
+                <Typography variant="pi" fontWeight="bold" textColor="danger600">*</Typography>
+            }
+          </Box>
+          {/*<Button startIcon={<Landscape />} variant='secondary' fullWidth onClick={() => {setForceInsert(true); handleToggleMediaLib()}}>Media library</Button>*/}
+          <Editor
+              disabled={disabled}
+              name={name}
+              onChange={onChange}
+              value={value}
+              editor={editor}
+              toggleMediaLib={handleToggleMediaLib}
+          />
+          {error &&
+              <Typography variant="pi" textColor="danger600">
+                {formatMessage({ id: error, defaultMessage: error })}
+              </Typography>
           }
-        </Box>
-        {/*<Button startIcon={<Landscape />} variant='secondary' fullWidth onClick={() => {setForceInsert(true); handleToggleMediaLib()}}>Media library</Button>*/}
-        <Editor
-          disabled={disabled}
-          name={name}
-          onChange={onChange}
-          value={value}
-          editor={editor}
-          toggleMediaLib={handleToggleMediaLib}
+          {description &&
+              <Typography variant="pi">
+                {formatMessage(description)}
+              </Typography>
+          }
+        </Stack>
+        <MediaLib
+            isOpen={mediaLibVisible}
+            onChange={handleChangeAssets}
+            onToggle={handleToggleMediaLib}
         />
-        {error &&
-          <Typography variant="pi" textColor="danger600">
-            {formatMessage({ id: error, defaultMessage: error })}
-          </Typography>
-        }
-        {description &&
-          <Typography variant="pi">
-            {formatMessage(description)}
-          </Typography>
-        }
-      </Stack>
-      <MediaLib
-        isOpen={mediaLibVisible}
-        onChange={handleChangeAssets}
-        onToggle={handleToggleMediaLib}
-      />
-    </>
+      </>
   );
 };
 
