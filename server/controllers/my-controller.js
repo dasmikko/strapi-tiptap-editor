@@ -3,7 +3,7 @@
 module.exports = {
   index(ctx) {
     ctx.body = strapi
-      .plugin('strapi-tiptap-editor')
+      .plugin('strapi-tiptap-editor-new')
       .service('myService')
       .getWelcomeMessage();
   },

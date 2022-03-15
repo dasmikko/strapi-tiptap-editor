@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "strapi": {
-    "name": "strapi-tiptap-editor",
+    "name": "Strapi TipTap Editor",
     "description": "A drop-in replacement for the strapi editor",
     "kind": "plugin"
   },

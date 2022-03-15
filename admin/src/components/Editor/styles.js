@@ -125,8 +125,9 @@ export default styled(Box)`
     }
 
     hr {
-      border-top: 2px solid rgba(#0D0D0D, 0.1);
-      margin: 2rem 0;
+      border: 0;
+      border-top: 2px solid rgba(13, 13, 13, .1);
+      margin: 1rem 0;
     }
 
     table {
