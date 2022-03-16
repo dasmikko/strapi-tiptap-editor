@@ -33,17 +33,6 @@ Luckily it's very easy to use. Just follow these instructions:
 # Install the dependency
 npm install strapi-tiptap-editor
 
-# Add the plugin to strapi plugin.js config file, located inside the strapi project folder: ./config/plugins.js
-# It should look something like this
-module.exports = {
-  // ...
-  'strapi-tiptap-editor': {
-    enabled: true,
-    resolve: './node_modules/strapi-tiptap-editor'
-  },
-  // ...
-}
-
 # Build the Strapi Admin
 npm run build
 ```
