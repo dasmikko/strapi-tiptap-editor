@@ -1,8 +1,8 @@
 
 # Strapi TipTap Editor
-![npm](https://img.shields.io/npm/v/strapi-tiptap-editor)
-![NPM](https://img.shields.io/npm/l/strapi-tiptap-editor)
-![GitHub issues](https://img.shields.io/github/issues/dasmikko/strapi-tiptap-editor)
+[![npm](https://img.shields.io/npm/v/strapi-tiptap-editor)](https://www.npmjs.com/package/strapi-tiptap-editor)
+[![NPM](https://img.shields.io/npm/l/strapi-tiptap-editor)](https://www.npmjs.com/package/strapi-tiptap-editor)
+[![GitHub issues](https://img.shields.io/github/issues/dasmikko/strapi-tiptap-editor)](https://github.com/dasmikko/strapi-tiptap-editor/issues)
 
 A drop-in replacement for the strapi editor.
 
