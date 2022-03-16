@@ -62,6 +62,7 @@ const CSSColumnsExtension = Extension.create({
   }
 })
 
+
 const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, description, required }) => {
   const { formatMessage } = useIntl();
   const [mediaLibVisible, setMediaLibVisible] = useState(false);
@@ -105,7 +106,7 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
 
   // Update content if value is changed outside
   useEffect(() => {
-    if (editor !== null && editor.getHTML() !== value) {
+    if (editor !== null && editor.getHTML() !== value && value !== null) {
       editor.commands.setContent(value)
     }
   })
@@ -133,7 +134,7 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
 
   return (
       <>
-        <Stack size={1}>
+        <Stack spacing={1}>
           <Box>
             <Typography variant="pi" fontWeight="bold">
               {formatMessage(intlLabel)}
