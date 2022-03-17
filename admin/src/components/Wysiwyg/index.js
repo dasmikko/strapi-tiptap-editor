@@ -8,6 +8,8 @@ import Landscape from '@strapi/icons/Landscape';
 import MediaLib from '../MediaLib/index.js';
 import Editor from '../Editor';
 import { useIntl } from 'react-intl';
+import {getSettings} from "../../../../utils/api";
+import { useQuery } from 'react-query';
 
 // TipTap
 import { useEditor } from '@tiptap/react'
@@ -67,6 +69,7 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
   const { formatMessage } = useIntl();
   const [mediaLibVisible, setMediaLibVisible] = useState(false);
   const [forceInsert, setForceInsert] = useState(false);
+  const {data: settings} = useQuery('settings', getSettings)
 
   const handleToggleMediaLib = () => setMediaLibVisible(prev => !prev);
 
@@ -151,6 +154,7 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
               value={value}
               editor={editor}
               toggleMediaLib={handleToggleMediaLib}
+              settings={settings}
           />
           {error &&
               <Typography variant="pi" textColor="danger600">

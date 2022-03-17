@@ -45,6 +45,7 @@ import {
 import {Table} from '@tiptap/extension-table'
 
 
+
 const onHeadingChange = (editor, type) => {
   console.log(type)
 
@@ -65,7 +66,7 @@ const onHeadingChange = (editor, type) => {
 
 
 
-const Toolbar = ({ editor, toggleMediaLib }) => {
+const Toolbar = ({ editor, toggleMediaLib, settings }) => {
   const [isVisibleLinkDialog, setIsVisibleLinkDialog] = useState(false);
   const [linkInput, setLinkInput] = useState('');
   const [linkTargetInput, setLinkTargetInput] = useState('');
@@ -124,6 +125,8 @@ const Toolbar = ({ editor, toggleMediaLib }) => {
   if (editor.isActive('heading', {level: 6})) selectedTextStyle = "h6"
   if (editor.isActive('paragraph')) selectedTextStyle = "paragraph"
 
+  console.log(settings)
+
   return (
       <Box padding={2} background="neutral100" className="menu-bar">
         <Flex justifyContent="space-between">
@@ -137,58 +140,58 @@ const Toolbar = ({ editor, toggleMediaLib }) => {
                   value={selectedTextStyle}
               >
                 <Option value={'paragraph'}>Paragraph</Option>
-                <Option value={'h1'}>Heading 1</Option>
-                <Option value={'h2'}>Heading 2</Option>
-                <Option value={'h3'}>Heading 3</Option>
-                <Option value={'h4'}>Heading 4</Option>
-                <Option value={'h5'}>Heading 5</Option>
-                <Option value={'h6'}>Heading 6</Option>
+                { settings.headings.includes('h1') ? (<Option value={'h1'}>Heading 1</Option>) : null}
+                { settings.headings.includes('h2') ? (<Option value={'h2'}>Heading 2</Option>) : null}
+                { settings.headings.includes('h3') ? (<Option value={'h3'}>Heading 3</Option>) : null}
+                { settings.headings.includes('h4') ? (<Option value={'h4'}>Heading 4</Option>) : null}
+                { settings.headings.includes('h5') ? (<Option value={'h5'}>Heading 5</Option>) : null}
+                { settings.headings.includes('h6') ? (<Option value={'h6'}>Heading 6</Option>) : null}
               </Select>
             </Box>
 
             <IconButtonGroup className="button-group">
-              <IconButton
+              { settings.bold ? (<IconButton
                   icon={<Bold/>}
                   label="Bold"
                   className={editor.isActive('bold') ? 'is-active' : ''}
                   onClick={() => editor.chain().focus().toggleBold().run()}
-              />
-              <IconButton
+              />) : null }
+              { settings.italic ? (<IconButton
                   icon={<Italic/>}
                   label="Italic"
                   className={editor.isActive('italic') ? 'is-active' : ''}
                   onClick={() => editor.chain().focus().toggleItalic().run()}
-              />
-              <IconButton
+              />) : null }
+              { settings.strikethrough ? (<IconButton
                   icon={<Strikethrough/>}
                   label="Strikethrough"
                   className={editor.isActive('strike') ? 'is-active' : ''}
                   onClick={() => editor.chain().focus().toggleStrike().run()}
-              />
-              <IconButton
+              />) : null }
+                  { settings.underline ? (<IconButton
                   icon={<Underline/>}
                   label="Underline"
                   className={editor.isActive('underline') ? 'is-active' : ''}
                   onClick={() => editor.chain().focus().toggleUnderline().run()}
-              />
+              />) : null }
             </IconButtonGroup>
 
             <IconButtonGroup className="button-group">
-              <IconButton
+              { settings.align.includes('left') ? (<IconButton
                   icon={<AiOutlineAlignLeft/>}
                   label="Align left"
                   onClick={() => editor.chain().focus().setTextAlign('left').run()}
-              />
-              <IconButton
+              />) : null }
+              { settings.align.includes('center') ? (<IconButton
                   icon={<AiOutlineAlignCenter/>}
                   label="Align center"
                   onClick={() => editor.chain().focus().setTextAlign('center').run()}
-              />
-              <IconButton
+              />) : null }
+              { settings.align.includes('center') ? (<IconButton
                   icon={<AiOutlineAlignRight/>}
                   label="Align right"
                   onClick={() => editor.chain().focus().setTextAlign('right').run()}
-              />
+              />) : null }
             </IconButtonGroup>
 
             <IconButtonGroup className="button-group">
@@ -412,11 +415,16 @@ const FloatingMenuComponent = ({editor}) => {
 }
 
 
-const Editor = ({ onChange, name, value, disabled, editor, toggleMediaLib }) => {
+const Editor = ({ onChange, name, value, disabled, editor, toggleMediaLib, settings }) => {
+  // Wait till we have the settings before showing the editor
+  if (!settings) {
+    return null
+  }
+
   return (
       <Wrapper>
         <Box hasRadius={true} overflow={'hidden'} borderWidth="1px" borderStyle="solid" borderColor="neutral300">
-          <Toolbar editor={editor} toggleMediaLib={toggleMediaLib}/>
+          <Toolbar editor={editor} toggleMediaLib={toggleMediaLib} settings={settings}/>
           <BubbleMenuComponent editor={editor} toggleMediaLib={toggleMediaLib}/>
 
           { /*editor ? (
@@ -441,7 +449,8 @@ Editor.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  settings: PropTypes.object
 };
 
 export default Editor;

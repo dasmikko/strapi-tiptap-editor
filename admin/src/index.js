@@ -6,7 +6,7 @@ const name = pluginPkg.strapi.name;
 
 const myComponent = async () => {
   const component = await import(
-    /* webpackChunkName: "users-providers-settings-page" */ './pages/App'
+    /* webpackChunkName: "strapi-tiptip-editor-settings-page" */ './pages/App'
     );
 
   return component;
