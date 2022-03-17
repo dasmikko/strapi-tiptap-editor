@@ -6,8 +6,10 @@
 
 import React, { memo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
-// import PropTypes from 'prop-types';
 import pluginId from '../../pluginId';
+import { getSettings, updateSettings } from '../../../../utils/api.js'
+
+// Fields and UI
 import { Main } from '@strapi/design-system/Main';
 import { HeaderLayout, ContentLayout } from '@strapi/design-system/Layout';
 import { Button } from '@strapi/design-system/Button';
@@ -16,8 +18,11 @@ import { Stack } from '@strapi/design-system/Stack';
 import { Select, Option } from '@strapi/design-system/Select';
 import { Typography } from '@strapi/design-system/Typography';
 import { Grid, GridItem } from '@strapi/design-system/Grid';
+import { Formik, Field, Form } from 'formik';
+
+// Icons
 import Check from '@strapi/icons/Check';
-import { getSettings, updateSettings } from '../../../../utils/api.js'
+
 
 const HomePage = (ctx) => {
   console.log(ctx, strapi)
@@ -65,6 +70,18 @@ const HomePage = (ctx) => {
 
           {!query.isLoading ? <p>{JSON.stringify(query.data)}</p> : null }
 
+            <Formik
+                initialValues={{
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                }}
+                onSubmit={async (values) => {
+                    await new Promise((r) => setTimeout(r, 500));
+                    alert(JSON.stringify(values, null, 2));
+                }}
+            >
+            </Formik>
 
           <Grid gap={6}>
             <GridItem col={6} s={12}>
