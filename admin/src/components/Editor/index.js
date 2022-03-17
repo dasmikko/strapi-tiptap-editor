@@ -17,7 +17,7 @@ import Wrapper from './styles.js'
 // Icons
 import Bold from '@strapi/icons/Bold';
 import Italic from '@strapi/icons/Italic';
-import Strikethrough from '@strapi/icons/Strikethrough';
+import Strikethrough from '@strapi/icons/StrikeThrough';
 import Underline from '@strapi/icons/Underline';
 import BulletList from '@strapi/icons/BulletList';
 import NumberList from '@strapi/icons/NumberList';
