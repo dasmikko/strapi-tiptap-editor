@@ -125,8 +125,6 @@ const Toolbar = ({ editor, toggleMediaLib, settings }) => {
   if (editor.isActive('heading', {level: 6})) selectedTextStyle = "h6"
   if (editor.isActive('paragraph')) selectedTextStyle = "paragraph"
 
-  console.log(settings)
-
   return (
       <Box padding={2} background="neutral100" className="menu-bar">
         <Flex justifyContent="space-between">
@@ -187,7 +185,7 @@ const Toolbar = ({ editor, toggleMediaLib, settings }) => {
                   label="Align center"
                   onClick={() => editor.chain().focus().setTextAlign('center').run()}
               />) : null }
-              { settings.align.includes('center') ? (<IconButton
+              { settings.align.includes('right') ? (<IconButton
                   icon={<AiOutlineAlignRight/>}
                   label="Align right"
                   onClick={() => editor.chain().focus().setTextAlign('right').run()}
@@ -195,33 +193,33 @@ const Toolbar = ({ editor, toggleMediaLib, settings }) => {
             </IconButtonGroup>
 
             <IconButtonGroup className="button-group">
-              <IconButton
+              { settings.lists.includes('ul') ? (<IconButton
                   icon={<BulletList/>}
                   label="Bullet list"
                   className={editor.isActive('bulletList') ? 'is-active' : ''}
                   onClick={() => editor.chain().focus().toggleBulletList().run()}
-              />
-              <IconButton
+              />) : null }
+              { settings.lists.includes('ol') ? (<IconButton
                   icon={<NumberList/>}
                   label="Ordered list"
                   className={editor.isActive('orderedList') ? 'is-active' : ''}
                   onClick={() => editor.chain().focus().toggleOrderedList().run()}
-              />
+              />) : null }
             </IconButtonGroup>
 
             <IconButtonGroup className="button-group">
-              <IconButton
+              { settings.columns.includes('two') ? (<IconButton
                   icon={<FiColumns fillOpacity={0} />}
                   label="Two columns"
                   className={editor.isActive({'cssColumns': '2'}) ? 'is-active' : ''}
                   onClick={() => editor.chain().focus().toggleColumns(2).run()}
-              />
-              <IconButton
+              />) : null }
+              { settings.columns.includes('three') ? (<IconButton
                   icon={<BsLayoutThreeColumns />}
                   label="Three columns"
                   className={editor.isActive({'cssColumns': '3'}) ? 'is-active' : ''}
                   onClick={() => editor.chain().focus().toggleColumns(3).run()}
-              />
+              />) : null }
             </IconButtonGroup>
 
             <IconButtonGroup className="button-group">
@@ -269,19 +267,19 @@ const Toolbar = ({ editor, toggleMediaLib, settings }) => {
                 </Button>} />
               </Dialog>
 
-              <IconButton
+              { settings.links.enabled ? (<IconButton
                   icon={<Link/>}
                   label="Link"
                   className={editor.isActive('link') ? 'is-active' : ''}
                   onClick={() => openLinkDialog()}
-              />
+              />) : null }
 
-              <IconButton
+              { settings.image.enabled ? (<IconButton
                   icon={<Landscape/>}
                   label={editor.isActive('image') ? 'Change image' : 'Insert image'}
                   className={editor.isActive('image') ? 'is-active' : ''}
                   onClick={toggleMediaLib}
-              />
+              />) : null }
 
               <IconButton
                   icon={<AiOutlineTable/>}

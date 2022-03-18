@@ -1,12 +1,17 @@
 'use strict';
 
+const packageInfo = require('../../package.json');
+
 const defaultSettings = {
+  version: packageInfo.version,
   headings: ['h1', 'h2', 'h3', 'h4', 'h4', 'h5', 'h6'],
   bold: true,
   italic: true,
   strikethrough: true,
   underline: true,
-  align: ['left', 'center', 'right']
+  align: ['left', 'center', 'right'],
+  lists: ['ol', 'ul'],
+  columns: ['two', 'three']
 }
 
 module.exports = {
@@ -20,6 +25,7 @@ module.exports = {
   },
   async updateSettings(ctx) {
     const newSettings = ctx.request.body
+
     await strapi.store({type: 'plugin', name: 'strapi-tiptap-editor', key: 'settings'}).set({value: newSettings})
     ctx.send({res: 'ok'})
   },

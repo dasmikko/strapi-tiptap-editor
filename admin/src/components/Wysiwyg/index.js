@@ -9,6 +9,7 @@ import MediaLib from '../MediaLib/index.js';
 import Editor from '../Editor';
 import { useIntl } from 'react-intl';
 import {getSettings} from "../../../../utils/api";
+import {defaultSettings} from "../../../../utils/defaults";
 import { useQuery } from 'react-query';
 
 // TipTap
@@ -23,6 +24,7 @@ import TableExtension from '@tiptap/extension-table'
 import TableRowExtension from '@tiptap/extension-table-row'
 import TableCellExtension from '@tiptap/extension-table-cell'
 import TableHeaderExtension from '@tiptap/extension-table-header'
+import packageInfo from '../../../../package.json'
 
 const CSSColumnsExtension = Extension.create({
   name: 'cssColumns',
@@ -69,11 +71,13 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
   const { formatMessage } = useIntl();
   const [mediaLibVisible, setMediaLibVisible] = useState(false);
   const [forceInsert, setForceInsert] = useState(false);
-  const {data: settings} = useQuery('settings', getSettings)
+  const {data: settings, isLoading} = useQuery('settings', getSettings)
+
+  const mergedSettings = {...defaultSettings, ...settings}
 
   const handleToggleMediaLib = () => setMediaLibVisible(prev => !prev);
 
-
+  console.log(mergedSettings)
 
   const editor = useEditor({
     extensions: [
@@ -81,14 +85,15 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
         gapcursor: true,
       }),
       UnderlineExtension,
-      LinkExtension.configure({
-        autolink: false,
-        openOnClick: false
-      }),
-      ImageExtension.configure({
-        inline: true,
-
-      }),
+      mergedSettings.links.enabled ? LinkExtension.configure({
+        autolink: mergedSettings.links.autolink,
+        openOnClick: mergedSettings.links.openOnClick,
+        linkOnPaste: mergedSettings.links.linkOnPaste,
+      }) : null,
+      mergedSettings.image.enabled ? ImageExtension.configure({
+        inline: mergedSettings.image.inline,
+        allowBase64: mergedSettings.image.allowBase64,
+      }) : null,
       TextAlignExtension.configure({
         types: ['heading', 'paragraph'],
       }),
@@ -103,14 +108,20 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
       }),
     ],
     onUpdate(ctx) {
+      console.log('Change')
       onChange({ target: { name, value: ctx.editor.getHTML() } })
     },
   })
+
+
 
   // Update content if value is changed outside
   useEffect(() => {
     if (editor !== null && editor.getHTML() !== value && value !== null) {
       editor.commands.setContent(value)
+    }
+
+    if (!isLoading) {
     }
   })
 
@@ -133,7 +144,9 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
     handleToggleMediaLib()
   };
 
-
+  if (isLoading) {
+    return null
+  }
 
   return (
       <>
@@ -154,7 +167,7 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
               value={value}
               editor={editor}
               toggleMediaLib={handleToggleMediaLib}
-              settings={settings}
+              settings={mergedSettings}
           />
           {error &&
               <Typography variant="pi" textColor="danger600">
