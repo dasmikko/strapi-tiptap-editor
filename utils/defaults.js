@@ -4,9 +4,12 @@ export const defaultSettings = {
   italic: true,
   strikethrough: true,
   underline: true,
+  code: true,
+  blockquote: true,
   align: ['left', 'center', 'right'],
   lists: ['ol', 'ul'],
   columns: ['two', 'three'],
+  table: true,
   links: {
     enabled: true,
     autolink: false,

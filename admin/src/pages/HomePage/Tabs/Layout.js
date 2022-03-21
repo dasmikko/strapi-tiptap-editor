@@ -3,11 +3,10 @@ import {Box} from '@strapi/design-system/Box'
 import {GridLayout} from '@strapi/design-system/Layout'
 import {ToggleInput} from '@strapi/design-system/ToggleInput'
 import {Typography} from '@strapi/design-system/Typography'
-import { addRemoveFromList } from '../../../../../utils/helpers.js'
+import {addRemoveFromList} from '../../../../../utils/helpers.js'
 
 export default ({errors, values, handleChange, isSubmitting}) => {
-  return (
-    <Fragment>
+  return (<Fragment>
       <Box marginBottom={'1rem'}>
         <Typography variant={'beta'}>Columns</Typography>
       </Box>
@@ -23,8 +22,7 @@ export default ({errors, values, handleChange, isSubmitting}) => {
             checked={values.columns.includes('two')}
             onChange={e => handleChange({
               target: {
-                name: 'columns',
-                value: addRemoveFromList([...values.columns], 'two')
+                name: 'columns', value: addRemoveFromList([...values.columns], 'two')
               }
             })}/>
         </Box>
@@ -39,14 +37,36 @@ export default ({errors, values, handleChange, isSubmitting}) => {
             checked={values.columns.includes('three')}
             onChange={e => handleChange({
               target: {
-                name: 'columns',
-                value: addRemoveFromList([...values.columns], 'three')
+                name: 'columns', value: addRemoveFromList([...values.columns], 'three')
               }
             })}/>
         </Box>
         <Box></Box>
         <Box></Box>
       </GridLayout>
-    </Fragment>
-  )
+
+      <Box marginTop="2rem" marginBottom={'1rem'}>
+        <Typography variant={'beta'}>Table</Typography>
+      </Box>
+
+      <GridLayout>
+        <Box>
+          <ToggleInput
+            label="Enable table"
+            size="S"
+            name="table"
+            onLabel="Enabled"
+            offLabel="Disabled"
+            checked={values.table}
+            onChange={e => handleChange({
+              target: {
+                name: 'table', value: !values.table
+              }
+            })}/>
+        </Box>
+        <Box></Box>
+        <Box></Box>
+        <Box></Box>
+      </GridLayout>
+    </Fragment>)
 }

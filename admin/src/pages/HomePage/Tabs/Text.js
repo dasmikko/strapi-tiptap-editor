@@ -153,6 +153,26 @@ export default ({errors, values, handleChange, isSubmitting}) => {
             checked={values.underline}
             onChange={e => handleChange({target: {name: 'underline', value: !values.underline}})}/>
         </Box>
+        <Box>
+          <ToggleInput
+            label="Code"
+            name="code"
+            size="S"
+            onLabel="Enabled"
+            offLabel="Disabled"
+            checked={values.code}
+            onChange={e => handleChange({target: {name: 'code', value: !values.code}})}/>
+        </Box>
+        <Box>
+          <ToggleInput
+            label="Blockquote"
+            name="blockquote"
+            size="S"
+            onLabel="Enabled"
+            offLabel="Disabled"
+            checked={values.blockquote}
+            onChange={e => handleChange({target: {name: 'blockquote', value: !values.blockquote}})}/>
+        </Box>
       </GridLayout>
 
       <Box marginTop={'2rem'} marginBottom={'1rem'}>
