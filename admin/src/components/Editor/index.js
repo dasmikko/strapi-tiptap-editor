@@ -1,6 +1,18 @@
 import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { EditorContent, FloatingMenu , BubbleMenu} from '@tiptap/react'
+import {EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/react'
+import { useEditor } from '@tiptap/react'
+import { Extension, mergeAttributes, wrappingInputRule } from '@tiptap/core'
+import StarterKit from '@tiptap/starter-kit'
+import UnderlineExtension from '@tiptap/extension-underline'
+import LinkExtension from '@tiptap/extension-link'
+import ImageExtension from '@tiptap/extension-image'
+import TextAlignExtension from '@tiptap/extension-text-align'
+import TableExtension from '@tiptap/extension-table'
+import TableRowExtension from '@tiptap/extension-table-row'
+import TableCellExtension from '@tiptap/extension-table-cell'
+import TableHeaderExtension from '@tiptap/extension-table-header'
+import packageInfo from '../../../../package.json'
 
 
 import { Box } from '@strapi/design-system/Box';
@@ -42,8 +54,6 @@ import {
   AiOutlineMergeCells,
   AiOutlineSplitCells
 } from 'react-icons/ai';
-import {Table} from '@tiptap/extension-table'
-
 
 
 const onHeadingChange = (editor, type) => {
@@ -412,8 +422,84 @@ const FloatingMenuComponent = ({editor}) => {
   )
 }
 
+const CSSColumnsExtension = Extension.create({
+  name: 'cssColumns',
+  addOptions () {
+    return {
+      types: [],
+      columnTypes: [2, 3],
+      defaultColumnType: 'two',
+    };
+  },
+  addGlobalAttributes () {
+    return [
+      {
+        types: this.options.types,
+        attributes: {
+          cssColumns: {
+            default: 1,
+            renderHTML: attributes => {
+              return {
+                style: `column-count: ${attributes.cssColumns}`,
+              }
+            },
+            parseHTML: element => element.style.columnCount || 1,
+          },
+        },
+      }
+    ]
+  },
+  addCommands () {
+    return {
+      toggleColumns: (columnType) => ({ commands, editor }) => {
+        if (!editor.isActive({'cssColumns': columnType})) return this.options.types.every((type) => commands.updateAttributes(type, {cssColumns: columnType}))
+        return this.options.types.every((type) => commands.resetAttributes(type, 'cssColumns'))
+      },
+      unsetColumns: (columnType) => ({ commands }) => {
+        return this.options.types.every((type) => commands.resetAttributes(type, 'cssColumns'))
+      },
+    }
+  }
+})
 
-const Editor = ({ onChange, name, value, disabled, editor, toggleMediaLib, settings }) => {
+const Editor = ({ onChange, name, value, disabled, toggleMediaLib, settings }) => {
+
+  console.log(settings)
+  const editor = useEditor({
+    extensions: [
+      StarterKit.configure({
+        gapcursor: true,
+      }),
+      UnderlineExtension,
+      settings.links.enabled ? LinkExtension.configure({
+        autolink: settings.links.autolink,
+        openOnClick: settings.links.openOnClick,
+        linkOnPaste: settings.links.linkOnPaste,
+      }) : null,
+      settings.image.enabled ? ImageExtension.configure({
+        inline: settings.image.inline,
+        allowBase64: settings.image.allowBase64,
+      }) : null,
+      TextAlignExtension.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      TableExtension.configure({
+        allowTableNodeSelection: true,
+      }),
+      TableRowExtension,
+      TableCellExtension,
+      TableHeaderExtension,
+      CSSColumnsExtension.configure({
+        types: ['paragraph']
+      }),
+    ],
+    content: value,
+    onUpdate(ctx) {
+      console.log('Change')
+      onChange({ target: { name, value: ctx.editor.getHTML() } })
+    },
+  })
+
   // Wait till we have the settings before showing the editor
   if (!settings) {
     return null
