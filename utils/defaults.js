@@ -6,6 +6,7 @@ export const defaultSettings = {
   underline: true,
   code: true,
   blockquote: true,
+  color: true,
   align: ['left', 'center', 'right'],
   lists: ['ol', 'ul'],
   columns: ['two', 'three'],

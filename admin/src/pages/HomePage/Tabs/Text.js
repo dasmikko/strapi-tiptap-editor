@@ -173,6 +173,17 @@ export default ({errors, values, handleChange, isSubmitting}) => {
             checked={values.blockquote}
             onChange={e => handleChange({target: {name: 'blockquote', value: !values.blockquote}})}/>
         </Box>
+
+        <Box>
+        <ToggleInput
+          label="Color"
+          name="color"
+          size="S"
+          onLabel="Enabled"
+          offLabel="Disabled"
+          checked={values.color}
+          onChange={e => handleChange({target: {name: 'color', value: !values.color}})}/>
+      </Box>
       </GridLayout>
 
       <Box marginTop={'2rem'} marginBottom={'1rem'}>
