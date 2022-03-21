@@ -14,6 +14,8 @@ import TableExtension from '@tiptap/extension-table'
 import TableRowExtension from '@tiptap/extension-table-row'
 import TableCellExtension from '@tiptap/extension-table-cell'
 import TableHeaderExtension from '@tiptap/extension-table-header'
+import TextStyleExtension from '@tiptap/extension-text-style'
+import { Color as ColorExtension } from '@tiptap/extension-color'
 import packageInfo from '../../../../package.json'
 import {Toolbar} from "./Toolbar";
 
@@ -152,47 +154,8 @@ const BubbleMenuComponent = ({editor, toggleMediaLib}) => {
   return null
 }
 
-const CSSColumnsExtension = Extension.create({
-  name: 'cssColumns',
-  addOptions() {
-    return {
-      types: [],
-      columnTypes: [2, 3],
-      defaultColumnType: 'two',
-    };
-  },
-  addGlobalAttributes() {
-    return [
-      {
-        types: this.options.types,
-        attributes: {
-          cssColumns: {
-            default: 1,
-            renderHTML: attributes => {
-              return {
-                style: `column-count: ${attributes.cssColumns}`,
-              }
-            },
-            parseHTML: element => element.style.columnCount || 1,
-          },
-        },
-      }
-    ]
-  },
-  addCommands() {
-    return {
-      toggleColumns: (columnType) => ({commands, editor}) => {
-        if (!editor.isActive({'cssColumns': columnType})) return this.options.types.every((type) => commands.updateAttributes(type, {cssColumns: columnType}))
-        return this.options.types.every((type) => commands.resetAttributes(type, 'cssColumns'))
-      },
-      unsetColumns: (columnType) => ({commands}) => {
-        return this.options.types.every((type) => commands.resetAttributes(type, 'cssColumns'))
-      },
-    }
-  }
-})
 
-const Editor = ({onChange, name, value, disabled, settings}) => {
+const Editor = ({onChange, name, value, editor, disabled, settings}) => {
   // Media library handling
   const [mediaLibVisible, setMediaLibVisible] = useState(false);
   const [forceInsert, setForceInsert] = useState(false);
@@ -216,53 +179,6 @@ const Editor = ({onChange, name, value, disabled, settings}) => {
     setForceInsert(false)
     handleToggleMediaLib()
   };
-
-
-  const editor = useEditor({
-    extensions: [
-      // Text
-      StarterKit.configure({
-        gapcursor: true,
-        code: settings.code,
-        codeBlock: settings.code,
-        blockquote: settings.blockquote
-      }),
-      UnderlineExtension,
-      TextAlignExtension.configure({
-        types: ['heading', 'paragraph'],
-      }),
-
-      // Links
-      settings.links.enabled ? LinkExtension.configure({
-        autolink: settings.links.autolink,
-        openOnClick: settings.links.openOnClick,
-        linkOnPaste: settings.links.linkOnPaste,
-      }) : null,
-
-      // Images
-      settings.image.enabled ? ImageExtension.configure({
-        inline: settings.image.inline,
-        allowBase64: settings.image.allowBase64,
-      }) : null,
-
-      // Table
-      settings.table ? TableExtension.configure({
-        allowTableNodeSelection: true,
-      }) : null,
-      settings.table ? TableRowExtension : null,
-      settings.table ? TableCellExtension : null,
-      settings.table ? TableHeaderExtension : null,
-
-      // CSS Columns
-      CSSColumnsExtension.configure({
-        types: ['paragraph']
-      }),
-    ],
-    content: value,
-    onUpdate(ctx) {
-      onChange({target: {name, value: ctx.editor.getHTML()}})
-    },
-  })
 
   // Wait till we have the settings before showing the editor
   if (!settings) {
@@ -297,6 +213,7 @@ Editor.defaultProps = {
 Editor.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  editor: PropTypes.object.isRequired,
   value: PropTypes.string,
   disabled: PropTypes.bool,
   settings: PropTypes.object

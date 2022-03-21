@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef, useEffect} from "react";
 
 // Icons
 import Bold from "@strapi/icons/Bold";
@@ -14,6 +14,8 @@ import Code from "@strapi/icons/Code";
 import {GrBlockQuote} from "react-icons/gr";
 import Link from "@strapi/icons/Link";
 import Landscape from "@strapi/icons/Landscape";
+import PaintBrush from "@strapi/icons/PaintBrush";
+import Paint from "@strapi/icons/Paint";
 
 
 // Layout
@@ -25,11 +27,16 @@ import { Stack } from '@strapi/design-system/Stack';
 import { Dialog, DialogBody, DialogFooter } from '@strapi/design-system/Dialog';
 import { IconButton, IconButtonGroup } from '@strapi/design-system/IconButton';
 import { Select, Option } from '@strapi/design-system/Select';
+import { Popover } from '@strapi/design-system/Popover';
 
 export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
   const [isVisibleLinkDialog, setIsVisibleLinkDialog] = useState(false);
   const [linkInput, setLinkInput] = useState('');
   const [linkTargetInput, setLinkTargetInput] = useState('');
+
+  // Color picker
+  const [colorPopoverVisible, setColorPopoverVisible] = useState(false);
+  const colorInputRef = useRef();
 
   const openLinkDialog = () => {
     const previousUrl = editor.getAttributes('link').href
@@ -130,6 +137,46 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
               className={editor.isActive('underline') ? 'is-active' : ''}
               onClick={() => editor.chain().focus().toggleUnderline().run()}
             />) : null }
+            { settings.color ? (<IconButton
+              icon={<PaintBrush/>}
+              label="Text color"
+              onClick={() => {
+                setColorPopoverVisible(s => !s)
+                setTimeout(() => {
+                  colorInputRef.current.value = editor.getAttributes('textStyle').color
+                }, 10)
+              }}
+            />) : null }
+
+            <Dialog onClose={() => setColorPopoverVisible(false)} title="Select color" isOpen={colorPopoverVisible}>
+              <DialogBody>
+                <Stack spacing={2}>
+                  <input
+                    style={{width: '100%', height: '2em'}}
+                    type="color"
+                    ref={colorInputRef}
+                  />
+                </Stack>
+              </DialogBody>
+              <DialogFooter startAction={
+                <Button onClick={() => {
+                  setColorPopoverVisible(false)
+                  editor.commands.unsetColor()
+                }}
+                  variant="tertiary">
+                Remove color
+                </Button>
+              } endAction={
+                <Button
+                  onClick={() => {
+                    editor.chain().focus().setColor(colorInputRef.current.value).run();
+                    setColorPopoverVisible(false)
+                  }}
+                  variant="success-light">
+                Change color
+              </Button>} />
+            </Dialog>
+
           </IconButtonGroup>
 
           <IconButtonGroup className="button-group">
