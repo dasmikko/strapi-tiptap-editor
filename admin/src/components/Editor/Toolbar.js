@@ -29,6 +29,22 @@ import { IconButton, IconButtonGroup } from '@strapi/design-system/IconButton';
 import { Select, Option } from '@strapi/design-system/Select';
 import { Popover } from '@strapi/design-system/Popover';
 
+const onHeadingChange = (editor, type) => {
+  switch (type) {
+    case 'h1':
+    case 'h2':
+    case 'h3':
+    case 'h4':
+    case 'h5':
+    case 'h6':
+      editor.chain().focus().toggleHeading({level: parseInt(type.replace('h', ''))}).run()
+      break;
+    case 'paragraph':
+      editor.chain().focus().setParagraph().run()
+      break;
+  }
+}
+
 export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
   const [isVisibleLinkDialog, setIsVisibleLinkDialog] = useState(false);
   const [linkInput, setLinkInput] = useState('');

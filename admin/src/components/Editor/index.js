@@ -44,21 +44,7 @@ import {
 } from 'react-icons/ai';
 
 
-const onHeadingChange = (editor, type) => {
-  switch (type) {
-    case 'h1':
-    case 'h2':
-    case 'h3':
-    case 'h4':
-    case 'h5':
-    case 'h6':
-      editor.chain().focus().toggleHeading({level: parseInt(type.replace('h', ''))}).run()
-      break;
-    case 'paragraph':
-      editor.chain().focus().setParagraph().run()
-      break;
-  }
-}
+
 
 
 const TableMenuBar = (editor) => {
