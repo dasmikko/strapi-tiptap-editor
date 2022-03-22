@@ -22,7 +22,7 @@ import {
   useOverlayBlocker
 } from '@strapi/helper-plugin'
 
-import {defaultSettings} from '../../../../utils/defaults.js'
+import defaultSettings from '../../../../utils/defaults.js'
 
 // Icons
 import Check from '@strapi/icons/Check'

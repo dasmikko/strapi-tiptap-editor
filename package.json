@@ -1,6 +1,6 @@
 {
   "name": "strapi-tiptap-editor",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "A drop-in replacement for the strapi editor",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -38,8 +38,8 @@
     "@tiptap/extension-text-align": "2.0.0-beta.29",
     "@tiptap/extension-underline": "2.0.0-beta.23",
     "@tiptap/extension-text-style": "2.0.0-beta.23",
-    "@tiptap/extension-color": "^2.0.0-beta.9",
-    "@tiptap/react": "^2.0.0-beta.108",
+    "@tiptap/extension-color": "2.0.0-beta.9",
+    "@tiptap/react": "2.0.0-beta.108",
     "@tiptap/starter-kit": "2.0.0-beta.183",
     "@strapi/helper-plugin": "4.1.5",
     "@strapi/icons": "0.0.1-alpha.79",
