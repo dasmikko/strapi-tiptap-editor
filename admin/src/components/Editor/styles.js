@@ -24,10 +24,10 @@ export default styled(Box)`
     outline: none;
     line-height: 1.25rem;
     @media (prefers-color-scheme: dark) {
-      color: ${({ theme }) => theme.colors.neutral800};
+      color: ${({ theme }) => theme.colors.neutral100};
     }
     @media (prefers-color-scheme: light) {
-      color: ${({ theme }) => theme.colors.neutral100};
+      color: ${({ theme }) => theme.colors.neutral800};
     }
 
     > * + * {
