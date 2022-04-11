@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { Box } from "@strapi/design-system/Box";
 
+
 export default styled(Box)`
+  /*${({ theme }) => console.log(theme)}*/
   .menu-bar {
     .is-active {
       background: ${({ theme }) => theme.colors.primary200};
@@ -23,12 +25,7 @@ export default styled(Box)`
   .ProseMirror {
     outline: none;
     line-height: 1.25rem;
-    @media (prefers-color-scheme: dark) {
-      color: ${({ theme }) => theme.colors.neutral100};
-    }
-    @media (prefers-color-scheme: light) {
-      color: ${({ theme }) => theme.colors.neutral800};
-    }
+    color: ${({ theme }) => theme.colors.neutral800};
 
     > * + * {
       margin-top: 0.75em;
