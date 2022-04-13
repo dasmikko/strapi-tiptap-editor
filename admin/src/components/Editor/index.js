@@ -173,7 +173,7 @@ const Editor = ({onChange, name, value, editor, disabled, settings}) => {
 
   return (
     <Wrapper>
-      <Box hasRadius={true} overflow={'hidden'} borderWidth="1px" borderStyle="solid" borderColor="neutral300">
+      <Box hasRadius={true} overflow={'hidden'} borderWidth="1px" borderStyle="solid" borderColor="neutral200">
         <Toolbar editor={editor} toggleMediaLib={handleToggleMediaLib} settings={settings}/>
         <BubbleMenuComponent editor={editor} toggleMediaLib={handleToggleMediaLib}/>
 

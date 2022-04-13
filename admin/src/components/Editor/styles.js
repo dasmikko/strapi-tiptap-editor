@@ -26,13 +26,14 @@ export default styled(Box)`
     outline: none;
     line-height: 1.25rem;
     color: ${({ theme }) => theme.colors.neutral800};
+    min-height: 80px;
 
     > * + * {
       margin-top: 0.75em;
     }
 
     .ProseMirror-selectednode {
-      border: 5px solid ${({ theme }) => theme.colors.primary500};
+      border: 5px solid ${({ theme }) => theme.colors.neutral800};
       box-sizing: border-box;
     }
 

@@ -1,21 +1,22 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, {useState, useRef, useEffect} from "react"
 
 // Icons
-import Bold from "@strapi/icons/Bold";
-import Italic from "@strapi/icons/Italic";
-import Strikethrough from "@strapi/icons/StrikeThrough";
-import Underline from "@strapi/icons/Underline";
-import {AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineTable} from "react-icons/ai";
-import BulletList from "@strapi/icons/BulletList";
-import NumberList from "@strapi/icons/NumberList";
-import {FiColumns} from "react-icons/fi";
-import {BsLayoutThreeColumns} from "react-icons/bs";
-import Code from "@strapi/icons/Code";
-import {GrBlockQuote} from "react-icons/gr";
-import Link from "@strapi/icons/Link";
-import Landscape from "@strapi/icons/Landscape";
-import PaintBrush from "@strapi/icons/PaintBrush";
-import Paint from "@strapi/icons/Paint";
+import Bold from "@strapi/icons/Bold"
+import Italic from "@strapi/icons/Italic"
+import Strikethrough from "@strapi/icons/StrikeThrough"
+import Underline from "@strapi/icons/Underline"
+import {AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineTable} from "react-icons/ai"
+import BulletList from "@strapi/icons/BulletList"
+import NumberList from "@strapi/icons/NumberList"
+import {BsLayoutSplit} from "react-icons/bs"
+import {BsLayoutThreeColumns} from "react-icons/bs"
+import Code from "@strapi/icons/Code"
+import {GrBlockQuote} from "react-icons/gr"
+import Link from "@strapi/icons/Link"
+import Landscape from "@strapi/icons/Landscape"
+import PaintBrush from "@strapi/icons/PaintBrush"
+import Paint from "@strapi/icons/Paint"
+import { IconContext } from "react-icons"
 
 
 // Layout
@@ -228,20 +229,22 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
             />) : null }
           </IconButtonGroup>
 
-          <IconButtonGroup className="button-group">
-            { settings.columns.includes('two') ? (<IconButton
-              icon={<FiColumns fillOpacity={0} />}
-              label="Two columns"
-              className={editor.isActive({'cssColumns': '2'}) ? 'is-active' : ''}
-              onClick={() => editor.chain().focus().toggleColumns(2).run()}
-            />) : null }
-            { settings.columns.includes('three') ? (<IconButton
-              icon={<BsLayoutThreeColumns />}
-              label="Three columns"
-              className={editor.isActive({'cssColumns': '3'}) ? 'is-active' : ''}
-              onClick={() => editor.chain().focus().toggleColumns(3).run()}
-            />) : null }
-          </IconButtonGroup>
+          <IconContext.Provider value={{ color: "#32324D"}}>
+            <IconButtonGroup className="button-group">
+              { settings.columns.includes('two') ? (<IconButton
+                icon={<BsLayoutSplit />}
+                label="Two columns"
+                className={editor.isActive({'cssColumns': '2'}) ? 'is-active' : ''}
+                onClick={() => editor.chain().focus().toggleColumns(2).run()}
+              />) : null }
+              { settings.columns.includes('three') ? (<IconButton
+                icon={<BsLayoutThreeColumns />}
+                label="Three columns"
+                className={editor.isActive({'cssColumns': '3'}) ? 'is-active' : ''}
+                onClick={() => editor.chain().focus().toggleColumns(3).run()}
+              />) : null }
+            </IconButtonGroup>
+          </IconContext.Provider>
 
           <IconButtonGroup className="button-group">
             { settings.code ? (<IconButton

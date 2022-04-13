@@ -90,6 +90,9 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, disabled, error, des
   const { formatMessage } = useIntl();
   const [ mergedSettings, setMergedSettings] = useState(null)
 
+
+  console.log(value.length)
+
   const editor = useEditor({
     extensions: [
       // Text
@@ -97,7 +100,7 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, disabled, error, des
         gapcursor: true,
         code: settings.code,
         codeBlock: settings.code,
-        blockquote: settings.blockquote
+        blockquote: settings.blockquote,
       }),
       UnderlineExtension,
       TextAlignExtension.configure({
@@ -132,7 +135,7 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, disabled, error, des
         types: ['paragraph']
       }),
     ],
-    content: value,
+    content: value.length === 0 ? '\n\n\n' : value,
     onUpdate(ctx) {
       onChange({target: {name, value: ctx.editor.getHTML()}})
     },
