@@ -9,19 +9,15 @@ A drop-in replacement for the strapi editor.
 ![Screenshot of the editor](./screenshot.png?raw=true "Screenshot")
 
 ## What is this?
-It's a dead simple, and easy to use drop-in replacement for the built in strapi WYSIWYG editor. It's build upon the [TipTap editor](https://tiptap.dev/).
+It's a dead simple, and easy to use drop-in replacement for the built-in strapi WYSIWYG editor. It's build upon the [TipTap editor](https://tiptap.dev/).
 It saves as plain HTML, making it easy to use with various frontends.
-
-A goal is to make it more configurable and make it fit your needs.
-
-The project is fully usable, but I still consider it beta at this stage.
 
 
 ## Why make this?
-The main reason was, that I thought that the built in WYSIWYG editor in strapi could be better. I needed to support tables and css columns. Another requirement was also make it outputted pure html, and has a nice and easy to user interface. I don't want to keep toggling between editor mode and preview mode, just to see what I'm making.
+The main reason was, that I thought that the built-in WYSIWYG editor in strapi could be better. I needed to support tables and css columns. Another requirement was also make it outputted pure html, and has a nice and easy to user interface. I don't want to keep toggling between editor mode and preview mode, just to see what I'm making.
 
 ## Requirements
-It's build with Strapi **v4** in mind. 
+It's build for Strapi **v4**. 
 
 It has been tested to work with **v4.1.1** and I assume it should keep working with later versions.
 
