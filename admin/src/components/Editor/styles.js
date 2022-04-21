@@ -3,7 +3,10 @@ import { Box } from "@strapi/design-system/Box";
 
 
 export default styled(Box)`
-  /*${({ theme }) => console.log(theme)}*/
+  ${({ theme }) => {
+    // Uncomment this for debugging styles
+    /*console.log(theme)*/
+  }}
   .menu-bar {
     .is-active {
       background: ${({ theme }) => theme.colors.primary200};
