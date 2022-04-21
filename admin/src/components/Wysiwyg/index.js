@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Stack } from '@strapi/design-system/Stack';
 import { Box } from '@strapi/design-system/Box';
+import { Field, FieldLabel, FieldHint, FieldError, FieldInput, FieldAction } from '@strapi/design-system/Field';
 import { Typography } from '@strapi/design-system/Typography';
 import MediaLib from '../MediaLib/index.js';
 import Editor from '../Editor';
@@ -9,6 +10,7 @@ import { useIntl } from 'react-intl';
 import {getSettings} from "../../../../utils/api";
 import {defaultSettings} from "../../../../utils/defaults";
 import { useQuery } from 'react-query';
+import Earth from "@strapi/icons/Earth"
 
 // Editor
 import {useEditor} from '@tiptap/react'
@@ -26,7 +28,7 @@ import TextStyleExtension from '@tiptap/extension-text-style'
 import { Color as ColorExtension } from '@tiptap/extension-color'
 
 
-const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, description, required }) => {
+const Wysiwyg = ({ name, onChange, value, intlLabel, labelAction, disabled, error, description, required }) => {
   const {data: settings, isLoading} = useQuery('settings', getSettings)
   if (isLoading) return null
 
@@ -36,6 +38,7 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, disabled, error, descriptio
       onChange={onChange}
       value={value}
       intlLabel={intlLabel}
+      labelAction={labelAction}
       disabled={disabled}
       error={error}
       description={description}
@@ -86,7 +89,7 @@ const CSSColumnsExtension = Extension.create({
 })
 
 
-const WysiwygContent = ({ name, onChange, value, intlLabel, disabled, error, description, required, settings }) => {
+const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disabled, error, description, required, settings }) => {
   const { formatMessage } = useIntl();
   const [ mergedSettings, setMergedSettings] = useState(null)
 
@@ -146,12 +149,7 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, disabled, error, des
       <>
         <Stack spacing={1}>
           <Box>
-            <Typography variant="pi" fontWeight="bold">
-              {formatMessage(intlLabel)}
-            </Typography>
-            {required &&
-                <Typography variant="pi" fontWeight="bold" textColor="danger600">*</Typography>
-            }
+            <FieldLabel action={labelAction} required={required}> {formatMessage(intlLabel)}</FieldLabel>
           </Box>
           <Editor
               key="editor"
@@ -198,6 +196,7 @@ Wysiwyg.propTypes = {
     id: PropTypes.string,
     defaultMessage: PropTypes.string,
   }),
+  labelAction: PropTypes.object,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
