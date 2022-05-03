@@ -182,6 +182,7 @@ const Editor = ({onChange, name, value, editor, disabled, settings}) => {
         </Box>
       </Box>
 
+
       <MediaLib
         isOpen={mediaLibVisible}
         onChange={handleChangeAssets}

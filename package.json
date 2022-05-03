@@ -27,7 +27,10 @@
   },
   "homepage": "https://github.com/dasmikko/strapi-tiptap-editor#readme",
   "dependencies": {
+    "@strapi/icons": "0.0.1-alpha.79",
     "@tiptap/core": "2.0.0-beta.174",
+    "@tiptap/extension-character-count": "2.0.0-beta.26",
+    "@tiptap/extension-color": "2.0.0-beta.9",
     "@tiptap/extension-gapcursor": "2.0.0-beta.34",
     "@tiptap/extension-image": "2.0.0-beta.27",
     "@tiptap/extension-link": "2.0.0-beta.36",
@@ -36,12 +39,10 @@
     "@tiptap/extension-table-header": "2.0.0-beta.22",
     "@tiptap/extension-table-row": "2.0.0-beta.19",
     "@tiptap/extension-text-align": "2.0.0-beta.29",
-    "@tiptap/extension-underline": "2.0.0-beta.23",
     "@tiptap/extension-text-style": "2.0.0-beta.23",
-    "@tiptap/extension-color": "2.0.0-beta.9",
+    "@tiptap/extension-underline": "2.0.0-beta.23",
     "@tiptap/react": "2.0.0-beta.108",
     "@tiptap/starter-kit": "2.0.0-beta.183",
-    "@strapi/icons": "0.0.1-alpha.79",
     "react-icons": "4.3.1"
   },
   "peerDependencies": {

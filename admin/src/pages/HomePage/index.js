@@ -31,6 +31,7 @@ import Check from '@strapi/icons/Check'
 import TextTabContent from './Tabs/Text.js'
 import LayoutTabContent from './Tabs/Layout.js'
 import EmbedsTabContent from './Tabs/Embeds.js'
+import OtherTabContent from './Tabs/Other.js'
 
 const HomePage = (ctx) => {
   const toggleNotification = useNotification()
@@ -111,6 +112,7 @@ const HomePage = (ctx) => {
                       <Tab>Text</Tab>
                       <Tab>Layout</Tab>
                       <Tab>Embeds</Tab>
+                      <Tab>Other</Tab>
                     </Tabs>
                     <TabPanels>
                       <TabPanel>
@@ -137,6 +139,17 @@ const HomePage = (ctx) => {
                         {/* Embeds tab content*/}
                         <Box color="neutral800" padding={4} background="neutral0">
                           <EmbedsTabContent
+                            errors={errors}
+                            values={values}
+                            handleChange={handleChange}
+                            isSubmitting={isSubmitting}
+                          />
+                        </Box>
+                      </TabPanel>
+                      <TabPanel>
+                        {/* Other tab content*/}
+                        <Box color="neutral800" padding={4} background="neutral0">
+                          <OtherTabContent
                             errors={errors}
                             values={values}
                             handleChange={handleChange}

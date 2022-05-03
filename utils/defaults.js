@@ -21,5 +21,8 @@ module.exports = {
     enabled: true,
     inline: true,
     allowBase64: false,
+  },
+  other: {
+    wordcount: false,
   }
 }
