@@ -145,6 +145,11 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
     return null
   }
 
+  // Update content if value is changed outside (Mainly for i18n)
+  if (editor !== null && editor.getHTML() !== value) {
+    editor.commands.setContent(value)
+  }
+
   return (
       <>
         <Stack spacing={1}>
