@@ -25,6 +25,7 @@ import TableRowExtension from '@tiptap/extension-table-row'
 import TableCellExtension from '@tiptap/extension-table-cell'
 import TableHeaderExtension from '@tiptap/extension-table-header'
 import TextStyleExtension from '@tiptap/extension-text-style'
+import CharacterCountExtension from '@tiptap/extension-character-count'
 import { Color as ColorExtension } from '@tiptap/extension-color'
 
 
@@ -129,6 +130,8 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
       settings.table ? TableRowExtension : null,
       settings.table ? TableCellExtension : null,
       settings.table ? TableHeaderExtension : null,
+
+      settings.other.wordcount ? CharacterCountExtension.configure() : null,
 
       // CSS Columns
       CSSColumnsExtension.configure({

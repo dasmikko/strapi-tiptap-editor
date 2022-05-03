@@ -42,6 +42,7 @@ import {
   AiOutlineMergeCells,
   AiOutlineSplitCells
 } from 'react-icons/ai';
+import PaintBrush from '@strapi/icons/PaintBrush.js'
 
 
 
@@ -182,6 +183,9 @@ const Editor = ({onChange, name, value, editor, disabled, settings}) => {
         </Box>
       </Box>
 
+      { settings.other.wordcount ? (<Box marginTop={'5px'}>
+        {editor.storage.characterCount.words()} {editor.storage.characterCount.words() > 1 ? 'words' : 'word'}
+      </Box>) : null }
 
       <MediaLib
         isOpen={mediaLibVisible}
