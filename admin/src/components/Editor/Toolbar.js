@@ -9,7 +9,7 @@ import {AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutline
 import BulletList from "@strapi/icons/BulletList"
 import NumberList from "@strapi/icons/NumberList"
 import {BsLayoutSplit} from "react-icons/bs"
-import {BsLayoutThreeColumns} from "react-icons/bs"
+import {BsLayoutThreeColumns, BsFileEarmarkCodeFill} from "react-icons/bs"
 import Code from "@strapi/icons/Code"
 import {GrBlockQuote} from "react-icons/gr"
 import Link from "@strapi/icons/Link"
@@ -17,6 +17,7 @@ import Landscape from "@strapi/icons/Landscape"
 import {FaImage} from "react-icons/fa"
 import PaintBrush from "@strapi/icons/PaintBrush"
 import Paint from "@strapi/icons/Paint"
+import CodeSquare from "@strapi/icons/CodeSquare"
 import { IconContext } from "react-icons"
 
 
@@ -54,6 +55,9 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
   const [linkInput, setLinkInput] = useState('');
   const [linkTargetInput, setLinkTargetInput] = useState('');
 
+
+
+
   // Base64 Image dialog
   const [base64MediaLibVisible, setBase64MediaLibVisible] = useState(false);
   const [base64Input, setBase64Input] = useState('');
@@ -72,6 +76,16 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
     setBase64Input('')
     setBase64MediaLibVisible(false)
   }
+
+
+
+  // Edit source
+  const [editSourceDialogOpen, setEditSourceDialogOpen] = useState(false);
+  const [sourceInput, setSourceInput] = useState('');
+  const handleToggleSourceDialog = () => setEditSourceDialogOpen(prev => !prev);
+
+
+
 
   // Color picker
   const [colorPopoverVisible, setColorPopoverVisible] = useState(false);
@@ -367,6 +381,11 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
               className={editor.isActive('table') ? 'is-active' : ''}
               onClick={() => editor.chain().focus().insertTable({cols: 3, row: 3, withHeaderRow: false}).run()}
             />) : null }
+
+            <IconButton
+              icon={<BsFileEarmarkCodeFill/>}
+              label="Edit source"
+            />
           </IconButtonGroup>
         </Flex>
       </Flex>

@@ -13,6 +13,7 @@ import { useQuery } from 'react-query';
 import Earth from "@strapi/icons/Earth"
 
 // Editor
+import CSSColumnsExtension from './extensions/CSSColumns.js'
 import {useEditor} from '@tiptap/react'
 import {Extension, mergeAttributes, wrappingInputRule} from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
@@ -49,45 +50,7 @@ const Wysiwyg = ({ name, onChange, value, intlLabel, labelAction, disabled, erro
   )
 }
 
-const CSSColumnsExtension = Extension.create({
-  name: 'cssColumns',
-  addOptions() {
-    return {
-      types: [],
-      columnTypes: [2, 3],
-      defaultColumnType: 'two',
-    };
-  },
-  addGlobalAttributes() {
-    return [
-      {
-        types: this.options.types,
-        attributes: {
-          cssColumns: {
-            default: 1,
-            renderHTML: attributes => {
-              return {
-                style: `column-count: ${attributes.cssColumns}`,
-              }
-            },
-            parseHTML: element => element.style.columnCount || 1,
-          },
-        },
-      }
-    ]
-  },
-  addCommands() {
-    return {
-      toggleColumns: (columnType) => ({commands, editor}) => {
-        if (!editor.isActive({'cssColumns': columnType})) return this.options.types.every((type) => commands.updateAttributes(type, {cssColumns: columnType}))
-        return this.options.types.every((type) => commands.resetAttributes(type, 'cssColumns'))
-      },
-      unsetColumns: (columnType) => ({commands}) => {
-        return this.options.types.every((type) => commands.resetAttributes(type, 'cssColumns'))
-      },
-    }
-  }
-})
+
 
 
 const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disabled, error, description, required, settings }) => {
