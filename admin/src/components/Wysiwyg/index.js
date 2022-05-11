@@ -64,13 +64,14 @@ const CSSColumnsExtension = Extension.create({
         types: this.options.types,
         attributes: {
           cssColumns: {
-            default: 1,
+            default: null,
             renderHTML: attributes => {
+              if (attributes.cssColumns === null) return
               return {
                 style: `column-count: ${attributes.cssColumns}`,
               }
             },
-            parseHTML: element => element.style.columnCount || 1,
+            parseHTML: element => element.style.columnCount || null,
           },
         },
       }
