@@ -132,7 +132,7 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
       settings.table ? TableCellExtension : null,
       settings.table ? TableHeaderExtension : null,
 
-      settings.other.wordcount ? CharacterCountExtension.configure() : null,
+      settings.other && settings.other.wordcount ? CharacterCountExtension.configure() : null,
 
       // CSS Columns
       CSSColumnsExtension.configure({
