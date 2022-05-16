@@ -183,7 +183,7 @@ const Editor = ({onChange, name, value, editor, disabled, settings}) => {
         </Box>
       </Box>
 
-      { settings.other.wordcount ? (<Box marginTop={'5px'} color="neutral600">
+      { settings.other && settings.other.wordcount ? (<Box marginTop={'5px'} color="neutral600">
         {editor.storage.characterCount.words()} {editor.storage.characterCount.words() > 1 ? 'words' : 'word'}
       </Box>) : null }
 
