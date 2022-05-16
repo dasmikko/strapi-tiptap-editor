@@ -231,7 +231,7 @@ export default ({errors, values, handleChange, isSubmitting}) => {
             checked={values.align.includes('right')}
             onChange={e => handleChange({
               target: {
-                name: 'right',
+                name: 'align',
                 value: addRemoveFromList([...values.align], 'right')
               }
             })}/>
