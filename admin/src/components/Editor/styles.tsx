@@ -1,34 +1,34 @@
-import styled from "styled-components";
-import { Box } from "@strapi/design-system/Box";
+import styled from 'styled-components';
+import {Box} from '@strapi/design-system/Box';
 
 
 export default styled(Box)`
-  ${({ theme }) => {
+  ${({theme}) => {
     // Uncomment this for debugging styles
     /*console.log(theme)*/
   }}
   .menu-bar {
     .is-active {
-      background: ${({ theme }) => theme.colors.primary200};
-      color: ${({ theme }) => theme.colors.neutral0};
+      background: ${({theme}) => theme.colors.primary200};
+      color: ${({theme}) => theme.colors.neutral0};
     }
 
     .button-group {
-      border: 0.25em solid ${({ theme }) => theme.colors.neutral100};
+      border: 0.25em solid ${({theme}) => theme.colors.neutral100};
     }
 
     &.floating {
-      border: 1px solid ${({ theme }) => theme.colors.neutral200};
-      background: ${({ theme }) => theme.colors.neutral100};
+      border: 1px solid ${({theme}) => theme.colors.neutral200};
+      background: ${({theme}) => theme.colors.neutral100};
       box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
-        rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+      rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
     }
   }
 
   .ProseMirror {
     outline: none;
     line-height: 1.25rem;
-    color: ${({ theme }) => theme.colors.neutral800};
+    color: ${({theme}) => theme.colors.neutral800};
     min-height: 80px;
 
     > * + * {
@@ -36,7 +36,7 @@ export default styled(Box)`
     }
 
     .ProseMirror-selectednode {
-      border: 5px solid ${({ theme }) => theme.colors.neutral800};
+      border: 5px solid ${({theme}) => theme.colors.neutral800};
       box-sizing: border-box;
     }
 
@@ -139,21 +139,26 @@ export default styled(Box)`
     table {
       width: 100%;
       table-layout: fixed;
-      border: 1px solid ${({ theme }) => theme.colors.neutral600};
+      border: 1px solid ${({theme}) => theme.colors.neutral600};
+
       th,
       td {
-        border: 1px solid ${({ theme }) => theme.colors.neutral600};
-        padding: ${({ theme }) => theme.spaces[2]};
+        border: 1px solid ${({theme}) => theme.colors.neutral600};
+        padding: ${({theme}) => theme.spaces[2]};
 
         &.selectedCell {
-          background: ${({ theme }) => theme.colors.primary500};
+          background: ${({theme}) => theme.colors.primary500};
         }
       }
 
       th {
-        background: ${({ theme }) => theme.colors.neutral300};
+        background: ${({theme}) => theme.colors.neutral300};
         vertical-align: middle;
       }
+    }
+
+    video {
+      max-width: 100%;
     }
   }
 `;

@@ -1,5 +1,5 @@
 import pluginPkg from "../../package.json";
-import Wysiwyg from "./components/Wysiwyg";
+import {Wysiwyg} from "../dist/Wysiwyg";
 import pluginId from "./pluginId";
 
 const name = pluginPkg.strapi.name;
