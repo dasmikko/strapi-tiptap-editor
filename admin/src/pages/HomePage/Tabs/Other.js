@@ -5,7 +5,7 @@ import {ToggleInput} from '@strapi/design-system/ToggleInput'
 import {Typography} from '@strapi/design-system/Typography'
 
 export default ({values, handleChange}) => {
-  const wordcount = values.other && values.others.wordcount;
+  const wordcount = values.other && values.other.wordcount;
 
   return (
     <Fragment>
