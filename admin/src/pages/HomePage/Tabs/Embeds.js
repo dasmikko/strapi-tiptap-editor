@@ -2,6 +2,7 @@ import React, {Fragment} from 'react'
 import {Box} from '@strapi/design-system/Box'
 import {GridLayout} from '@strapi/design-system/Layout'
 import {ToggleInput} from '@strapi/design-system/ToggleInput'
+import {TextInput} from '@strapi/design-system/TextInput'
 import {Typography} from '@strapi/design-system/Typography'
 import { addRemoveFromList } from '../../../../../utils/helpers.js'
 
@@ -157,6 +158,60 @@ export default ({errors, values, handleChange, isSubmitting}) => {
             })}/>
         </Box>
         <Box></Box>
+      </GridLayout>
+
+      <Box marginTop={'2rem'} marginBottom={'1rem'}>
+        <Typography variant={'beta'}>YouTube</Typography>
+      </Box>
+
+      <GridLayout>
+        <Box>
+          <ToggleInput
+            label="Enabled"
+            hint="Allow to add YouTube video embeds"
+            size="S"
+            name="youtube.enabled"
+            onLabel="Enabled"
+            offLabel="Disabled"
+            checked={values.youtube.enabled}
+            onChange={e => handleChange({
+              target: {
+                name: 'youtube.enabled',
+                value: !values.youtube.enabled
+              }
+            })}/>
+        </Box>
+
+        <Box>
+          <TextInput
+            label="Default video width"
+            type="number"
+            placeholder="width of the embed"
+            name="width" onChange={e => handleChange({
+                target: {
+                  name: 'youtube.width',
+                  value: e.target.value
+                }
+              })}
+            value={values.youtube.width}
+            aria-label="YouTube video width"/>
+        </Box>
+
+        <Box>
+          <TextInput
+            label="Default video height"
+            type="number"
+            placeholder="height of the embed"
+            name="height"
+            onChange={e => handleChange({
+            target: {
+              name: 'youtube.height',
+              value: e.target.value
+            }
+          })}
+            value={values.youtube.height}
+            aria-label="YouTube video height"/>
+        </Box>
       </GridLayout>
     </Fragment>
   )

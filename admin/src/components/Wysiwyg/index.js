@@ -8,7 +8,7 @@ import MediaLib from '../MediaLib/index.js';
 import Editor from '../Editor';
 import { useIntl } from 'react-intl';
 import {getSettings} from "../../../../utils/api";
-import {defaultSettings} from "../../../../utils/defaults";
+import defaultSettings from "../../../../utils/defaults";
 import { useQuery } from 'react-query';
 import Earth from "@strapi/icons/Earth"
 
@@ -26,11 +26,13 @@ import TableCellExtension from '@tiptap/extension-table-cell'
 import TableHeaderExtension from '@tiptap/extension-table-header'
 import TextStyleExtension from '@tiptap/extension-text-style'
 import CharacterCountExtension from '@tiptap/extension-character-count'
+import YouTubeExtension from '@tiptap/extension-youtube'
 import { Color as ColorExtension } from '@tiptap/extension-color'
 
 
 const Wysiwyg = ({ name, onChange, value, intlLabel, labelAction, disabled, error, description, required }) => {
-  const {data: settings, isLoading} = useQuery('settings', getSettings)
+  const {data: savedSettings, isLoading} = useQuery('settings', getSettings)
+  const settings = {...defaultSettings, ...savedSettings}
   if (isLoading) return null
 
   return (
@@ -138,6 +140,10 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
       CSSColumnsExtension.configure({
         types: ['paragraph']
       }),
+
+      settings.youtube.enabled ? YouTubeExtension.configure({
+        inline: false,
+      }) : null,
     ],
     content: value,
     onUpdate(ctx) {

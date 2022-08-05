@@ -24,5 +24,10 @@ module.exports = {
   },
   other: {
     wordcount: false,
+  },
+  youtube: {
+    enabled: true,
+    height: 480,
+    width: 640
   }
 }

@@ -12,6 +12,7 @@ import {BsLayoutSplit} from "react-icons/bs"
 import {BsLayoutThreeColumns} from "react-icons/bs"
 import Code from "@strapi/icons/Code"
 import {GrBlockQuote} from "react-icons/gr"
+import {AiFillYoutube} from "react-icons/ai"
 import Link from "@strapi/icons/Link"
 import Landscape from "@strapi/icons/Landscape"
 import {FaImage} from "react-icons/fa"
@@ -53,6 +54,22 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
   const [isVisibleLinkDialog, setIsVisibleLinkDialog] = useState(false);
   const [linkInput, setLinkInput] = useState('');
   const [linkTargetInput, setLinkTargetInput] = useState('');
+
+  // YouTube
+  const [isVisibleYouTubeDialog, setIsVisibleYouTubeDialog] = useState(false);
+  const [youTubeInput, setYouTubeInput] = useState('');
+  const [youTubeHeightInput, setYouTubeHeightInput] = useState(settings.youtube.height);
+  const [youTubeWidthInput, setYouTubeWidthInput] = useState(settings.youtube.width);
+
+  const onInsertYouTubeEmbed = () => {
+    editor.chain().focus().setYoutubeVideo({
+      src: youTubeInput,
+      width: youTubeWidthInput,
+      height: youTubeHeightInput,
+    }).run()
+    setYouTubeInput('')
+    setIsVisibleYouTubeDialog(false)
+  }
 
   // Base64 Image dialog
   const [base64MediaLibVisible, setBase64MediaLibVisible] = useState(false);
@@ -367,6 +384,50 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
               className={editor.isActive('table') ? 'is-active' : ''}
               onClick={() => editor.chain().focus().insertTable({cols: 3, row: 3, withHeaderRow: false}).run()}
             />) : null }
+
+            { settings.youtube.enabled ? (<IconButton
+              icon={<AiFillYoutube/>}
+              label="YouTube"
+              className={editor.isActive('youtube') ? 'is-active' : ''}
+              onClick={() => setIsVisibleYouTubeDialog(true)}
+            />) : null }
+
+            <Dialog onClose={() => setIsVisibleYouTubeDialog(false)} title="Insert YouTube embed" isOpen={isVisibleYouTubeDialog}>
+              <DialogBody>
+                <Stack spacing={2}>
+                  <TextInput
+                    label="YouTube URL"
+                    placeholder="Write or paste the url here"
+                    name="url" onChange={e => setYouTubeInput(e.target.value)}
+                    value={youTubeInput}
+                    aria-label="YouTube URL"/>
+
+
+                  <Stack horizontal={true} spacing={2}>
+                    <TextInput
+                      label="YouTube video width"
+                      type="number"
+                      placeholder="width of the embed"
+                      name="url" onChange={e => setYouTubeWidthInput(e.target.value)}
+                      value={youTubeWidthInput}
+                      aria-label="YouTube video width"/>
+
+                    <TextInput
+                      label="YouTube video height"
+                      type="number"
+                      placeholder="height of the embed"
+                      name="url" onChange={e => setYouTubeHeightInput(e.target.value)}
+                      value={youTubeHeightInput}
+                      aria-label="YouTube video height"/>
+                  </Stack>
+                </Stack>
+              </DialogBody>
+              <DialogFooter startAction={<Button onClick={() =>  {setYouTubeInput(''); setIsVisibleYouTubeDialog(false)}} variant="tertiary">
+                Cancel
+              </Button>} endAction={<Button disabled={youTubeInput.length === 0} onClick={() => onInsertYouTubeEmbed()} variant="success-light">
+                Insert YouTube embed
+              </Button>} />
+            </Dialog>
           </IconButtonGroup>
         </Flex>
       </Flex>
