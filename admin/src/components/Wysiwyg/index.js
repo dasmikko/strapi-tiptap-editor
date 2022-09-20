@@ -107,6 +107,7 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
         code: settings.code,
         codeBlock: settings.code,
         blockquote: settings.blockquote,
+        horizontalRule: settings.horizontal
       }),
       UnderlineExtension,
       TextAlignExtension.configure({

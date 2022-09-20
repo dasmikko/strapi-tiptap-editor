@@ -68,5 +68,30 @@ export default ({errors, values, handleChange, isSubmitting}) => {
         <Box></Box>
         <Box></Box>
       </GridLayout>
+
+
+    <Box marginTop="2rem" marginBottom={'1rem'}>
+      <Typography variant={'beta'}>Horizontal Rule</Typography>
+    </Box>
+
+    <GridLayout>
+      <Box>
+        <ToggleInput
+          label="Enable horizontal rule"
+          size="S"
+          name="horizontal"
+          onLabel="Enabled"
+          offLabel="Disabled"
+          checked={values.horizontal}
+          onChange={e => handleChange({
+            target: {
+              name: 'horizontal', value: !values.horizontal
+            }
+          })}/>
+      </Box>
+      <Box></Box>
+      <Box></Box>
+      <Box></Box>
+    </GridLayout>
     </Fragment>)
 }

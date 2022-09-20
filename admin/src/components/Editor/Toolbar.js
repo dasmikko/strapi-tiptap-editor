@@ -12,13 +12,14 @@ import {BsLayoutSplit} from "react-icons/bs"
 import {BsLayoutThreeColumns} from "react-icons/bs"
 import Code from "@strapi/icons/Code"
 import {GrBlockQuote} from "react-icons/gr"
-import {AiFillYoutube} from "react-icons/ai"
+import {AiFillYoutube, AiOutlineLine} from "react-icons/ai"
 import Link from "@strapi/icons/Link"
 import Landscape from "@strapi/icons/Landscape"
 import {FaImage} from "react-icons/fa"
 import PaintBrush from "@strapi/icons/PaintBrush"
 import Paint from "@strapi/icons/Paint"
 import { IconContext } from "react-icons"
+
 
 
 // Layout
@@ -390,6 +391,12 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
               label="YouTube"
               className={editor.isActive('youtube') ? 'is-active' : ''}
               onClick={() => setIsVisibleYouTubeDialog(true)}
+            />) : null }
+
+            { settings.horizontal ? (<IconButton
+              icon={<AiOutlineLine/>}
+              label="Horizontal line"
+              onClick={() => editor.chain().focus().setHorizontalRule().run()}
             />) : null }
 
             <Dialog onClose={() => setIsVisibleYouTubeDialog(false)} title="Insert YouTube embed" isOpen={isVisibleYouTubeDialog}>
