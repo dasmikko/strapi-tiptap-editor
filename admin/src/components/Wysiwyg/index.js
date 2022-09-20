@@ -30,10 +30,12 @@ import YouTubeExtension from '@tiptap/extension-youtube'
 import { Color as ColorExtension } from '@tiptap/extension-color'
 
 
-const Wysiwyg = ({ name, onChange, value, intlLabel, labelAction, disabled, error, description, required }) => {
+const Wysiwyg = (opts) => {
+  const { name, onChange, value, intlLabel, labelAction, disabled, error, description, required } = opts
   const {data: savedSettings, isLoading} = useQuery('settings', getSettings)
   const settings = {...defaultSettings, ...savedSettings}
   if (isLoading) return null
+
 
   return (
     <WysiwygContent
@@ -95,7 +97,7 @@ const CSSColumnsExtension = Extension.create({
 
 const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disabled, error, description, required, settings }) => {
   const { formatMessage } = useIntl();
-  const [ mergedSettings, setMergedSettings] = useState(null)
+  const [currentContent, setCurrentContent] = useState('');
 
   const editor = useEditor({
     extensions: [
@@ -145,7 +147,9 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
         inline: false,
       }) : null,
     ],
-    content: value,
+    parseOptions: {
+      preserveWhitespace: 'full',
+    },
     onUpdate(ctx) {
       onChange({target: {name, value: ctx.editor.getHTML()}})
     },
@@ -153,11 +157,11 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
 
   if (editor === null) {
     return null
-  }
-
-  // Update content if value is changed outside (Mainly for i18n)
-  if (editor !== null && editor.getHTML() !== value) {
-    editor.commands.setContent(value)
+  } else {
+    if (currentContent === '') {
+      setCurrentContent(value)
+      editor.commands.setContent(value, false)
+    }
   }
 
   return (
