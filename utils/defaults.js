@@ -11,6 +11,7 @@ module.exports = {
   lists: ['ol', 'ul'],
   columns: ['two', 'three'],
   table: true,
+  hardbreak: true,
   horizontal: true,
   links: {
     enabled: true,

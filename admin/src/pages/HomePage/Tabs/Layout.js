@@ -93,5 +93,29 @@ export default ({errors, values, handleChange, isSubmitting}) => {
       <Box></Box>
       <Box></Box>
     </GridLayout>
+
+    <Box marginTop="2rem" marginBottom={'1rem'}>
+      <Typography variant={'beta'}>Hardbreak</Typography>
+    </Box>
+
+    <GridLayout>
+      <Box>
+        <ToggleInput
+          label="Enable hardbreaks"
+          size="S"
+          name="hardbreak"
+          onLabel="Enabled"
+          offLabel="Disabled"
+          checked={values.hardbreak}
+          onChange={e => handleChange({
+            target: {
+              name: 'hardbreak', value: !values.hardbreak
+            }
+          })}/>
+      </Box>
+      <Box></Box>
+      <Box></Box>
+      <Box></Box>
+    </GridLayout>
     </Fragment>)
 }
