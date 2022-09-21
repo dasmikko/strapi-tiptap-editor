@@ -160,6 +160,26 @@ export default ({errors, values, handleChange, isSubmitting}) => {
         <Box></Box>
       </GridLayout>
 
+      <GridLayout>
+        <Box>
+          <TextInput
+            label="Rel attribute value"
+            type="text"
+            placeholder="Value of the rel attribute of links"
+            name="rel" onChange={e => handleChange({
+            target: {
+              name: 'links.HTMLAttributes.rel',
+              value: e.target.value
+            }
+          })}
+            value={values.links.HTMLAttributes.rel}
+            aria-label="Value of the rel attribute of links"/>
+        </Box>
+        <Box></Box>
+        <Box></Box>
+        <Box></Box>
+      </GridLayout>
+
       <Box marginTop={'2rem'} marginBottom={'1rem'}>
         <Typography variant={'beta'}>YouTube</Typography>
       </Box>

@@ -28,12 +28,13 @@ import TextStyleExtension from '@tiptap/extension-text-style'
 import CharacterCountExtension from '@tiptap/extension-character-count'
 import YouTubeExtension from '@tiptap/extension-youtube'
 import { Color as ColorExtension } from '@tiptap/extension-color'
+import {mergeDeep} from "../../utils/merge";
 
 
 const Wysiwyg = (opts) => {
   const { name, onChange, value, intlLabel, labelAction, disabled, error, description, required } = opts
   const {data: savedSettings, isLoading} = useQuery('settings', getSettings)
-  const settings = {...defaultSettings, ...savedSettings}
+  const settings = mergeDeep(defaultSettings, savedSettings)
   if (isLoading) return null
 
 
@@ -122,6 +123,9 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
         autolink: settings.links.autolink,
         openOnClick: settings.links.openOnClick,
         linkOnPaste: settings.links.linkOnPaste,
+        HTMLAttributes: {
+          rel: settings.links.HTMLAttributes.rel
+        }
       }) : null,
 
       // Images

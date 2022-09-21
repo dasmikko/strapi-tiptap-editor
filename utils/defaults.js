@@ -17,7 +17,11 @@ module.exports = {
     enabled: true,
     autolink: false,
     openOnClick: false,
-    linkOnPaste: true
+    linkOnPaste: true,
+    relAttribute: false,
+    HTMLAttributes: {
+      rel: ''
+    }
   },
   image: {
     enabled: true,

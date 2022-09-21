@@ -32,6 +32,7 @@ import TextTabContent from './Tabs/Text.js'
 import LayoutTabContent from './Tabs/Layout.js'
 import EmbedsTabContent from './Tabs/Embeds.js'
 import OtherTabContent from './Tabs/Other.js'
+import { mergeDeep } from "../../utils/merge";
 
 const HomePage = (ctx) => {
   const toggleNotification = useNotification()
@@ -72,10 +73,13 @@ const HomePage = (ctx) => {
     )
   }
 
+  // Merge saved settings with default values, in case new ones are added
+  const mergedSettings = mergeDeep(defaultSettings, query.data)
+
   return (
     <Main aria-busy={query.isLoading}>
       <Formik
-        initialValues={{...defaultSettings, ...query.data}}
+        initialValues={mergedSettings}
         onSubmit={async (values) => {
           lockApp()
           await mutation.mutateAsync(values)
