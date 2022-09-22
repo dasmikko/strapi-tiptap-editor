@@ -161,14 +161,13 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
     },
   })
 
-  if (editor === null) {
-    return null
-  } else {
+  useEffect(() => {
+    if (editor === null) return
     if (currentContent === '') {
       setCurrentContent(value)
       editor.commands.setContent(value, false)
     }
-  }
+  }, [editor])
 
   return (
       <>
@@ -176,7 +175,8 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
           <Box>
             <FieldLabel action={labelAction} required={required}> {formatMessage(intlLabel)}</FieldLabel>
           </Box>
-          <Editor
+          {editor && 
+            <Editor
               key="editor"
               disabled={disabled}
               name={name}
@@ -184,7 +184,8 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
               onChange={onChange}
               value={value}
               settings={settings}
-          />
+            />
+          }
           {error &&
               <Typography variant="pi" textColor="danger600">
                 {formatMessage({ id: error, defaultMessage: error })}
