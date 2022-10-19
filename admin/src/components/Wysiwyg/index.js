@@ -15,7 +15,6 @@ import Earth from "@strapi/icons/Earth"
 // Editor
 import {useEditor} from '@tiptap/react'
 import {Extension, mergeAttributes, wrappingInputRule} from '@tiptap/core'
-import StarterKit from '@tiptap/starter-kit'
 import UnderlineExtension from '@tiptap/extension-underline'
 import LinkExtension from '@tiptap/extension-link'
 import ImageExtension from '@tiptap/extension-image'
