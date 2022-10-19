@@ -1,6 +1,6 @@
 {
   "name": "strapi-tiptap-editor",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "A drop-in replacement for the strapi editor",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -57,6 +57,7 @@
     "@tiptap/extension-text-style": "2.0.0-beta.199",
     "@tiptap/extension-underline": "2.0.0-beta.199",
     "@tiptap/extension-youtube": "2.0.0-beta.199",
+    "@tiptap/react": "2.0.0-beta.199",
     "react-icons": "4.4.0"
   },
   "peerDependencies": {
