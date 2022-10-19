@@ -9,6 +9,7 @@ module.exports = {
   color: true,
   align: ['left', 'center', 'right'],
   lists: ['ol', 'ul'],
+  disableOrderedListShorthand: false,
   columns: ['two', 'three'],
   table: true,
   hardbreak: true,

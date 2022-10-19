@@ -27,6 +27,22 @@ import TableHeaderExtension from '@tiptap/extension-table-header'
 import TextStyleExtension from '@tiptap/extension-text-style'
 import CharacterCountExtension from '@tiptap/extension-character-count'
 import YouTubeExtension from '@tiptap/extension-youtube'
+import CodeExtension from '@tiptap/extension-code'
+import BoldExtension from '@tiptap/extension-bold'
+import ItalicExtension from '@tiptap/extension-italic'
+import StrikeExtension, {Strike} from '@tiptap/extension-strike'
+import OrderedListExtension from "@tiptap/extension-ordered-list"
+import BulletListExtension from '@tiptap/extension-bullet-list'
+import ListItemExtension from '@tiptap/extension-list-item'
+import GapcursorExtension from '@tiptap/extension-gapcursor'
+import BlockquoteExtension from '@tiptap/extension-blockquote'
+import CodeBlockExtension from '@tiptap/extension-code-block'
+import DocumentExtension from '@tiptap/extension-document'
+import HardBreakExtension from '@tiptap/extension-hard-break'
+import HeadingExtension from '@tiptap/extension-heading'
+import HorizontalRuleExtension from '@tiptap/extension-horizontal-rule'
+import ParagraphExtension from '@tiptap/extension-paragraph'
+import TextExtension from '@tiptap/extension-text'
 import { Color as ColorExtension } from '@tiptap/extension-color'
 import {mergeDeep} from "../../utils/merge";
 
@@ -95,6 +111,11 @@ const CSSColumnsExtension = Extension.create({
   }
 })
 
+const CustomOrderedList = OrderedListExtension.extend({
+  addInputRules() {
+    return []
+  }
+})
 
 const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disabled, error, description, required, settings }) => {
   const { formatMessage } = useIntl();
@@ -103,14 +124,23 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
   const editor = useEditor({
     extensions: [
       // Text
-      StarterKit.configure({
-        gapcursor: true,
-        code: settings.code,
-        codeBlock: settings.code,
-        blockquote: settings.blockquote,
-        horizontalRule: settings.horizontal,
-        hardBreak: settings.hardbreak
-      }),
+      DocumentExtension,
+      ParagraphExtension,
+      TextExtension,
+      BoldExtension,
+      StrikeExtension,
+      ItalicExtension,
+      GapcursorExtension,
+      ListItemExtension,
+      BulletListExtension,
+
+      settings.disableOrderedListShorthand ? CustomOrderedList : OrderedListExtension,
+      settings.code ? CodeBlockExtension : null,
+      settings.code ? CodeExtension : null,
+      settings.blockquote ? BlockquoteExtension : null,
+      settings.horizontalRule ? HorizontalRuleExtension : null,
+      settings.hardBreak ? HardBreakExtension : null,
+
       UnderlineExtension,
       TextAlignExtension.configure({
         types: ['heading', 'paragraph'],
@@ -175,7 +205,7 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
           <Box>
             <FieldLabel action={labelAction} required={required}> {formatMessage(intlLabel)}</FieldLabel>
           </Box>
-          {editor && 
+          {editor &&
             <Editor
               key="editor"
               disabled={disabled}

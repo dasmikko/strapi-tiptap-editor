@@ -277,6 +277,23 @@ export default ({errors, values, handleChange, isSubmitting}) => {
         </Box>
         <Box></Box>
         <Box></Box>
+
+        <Box>
+          <ToggleInput
+            label="Disable shorthand for ordered list"
+            hint="Normally you can type: 1. and after the space it converts it to a ordered list. This can be annoying when typing dates."
+            size="S"
+            name="lists"
+            onLabel="Enabled"
+            offLabel="Disabled"
+            checked={values.disableOrderedListShorthand}
+            onChange={e => handleChange({
+              target: {
+                name: 'disableOrderedListShorthand',
+                value: !values.disableOrderedListShorthand
+              }
+            })}/>
+        </Box>
       </GridLayout>
     </Fragment>
   )
