@@ -121,11 +121,6 @@ export default styled(Box)`
       line-height: 1.1;
     }
 
-    code {
-      background-color: rgba(#616161, 0.1);
-      color: #616161;
-    }
-
     pre {
       background: #0d0d0d;
       color: #fff;
