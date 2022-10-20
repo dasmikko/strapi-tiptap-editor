@@ -132,12 +132,13 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
       GapcursorExtension,
       ListItemExtension,
       BulletListExtension,
+      HeadingExtension,
 
       settings.disableOrderedListShorthand ? CustomOrderedList : OrderedListExtension,
       settings.code ? CodeBlockExtension : null,
       settings.code ? CodeExtension : null,
       settings.blockquote ? BlockquoteExtension : null,
-      settings.horizontalRule ? HorizontalRuleExtension : null,
+      settings.horizontal ? HorizontalRuleExtension : null,
       settings.hardBreak ? HardBreakExtension : null,
 
       UnderlineExtension,
