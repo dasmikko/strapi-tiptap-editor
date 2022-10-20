@@ -173,25 +173,25 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
             { settings.bold ? (<IconButton
               icon={<Bold/>}
               label="Bold"
-              className={editor.isActive('bold') ? 'is-active' : ''}
+              className={['large-icon', editor.isActive('bold') ? 'is-active' : '']}
               onClick={() => editor.chain().focus().toggleBold().run()}
             />) : null }
             { settings.italic ? (<IconButton
               icon={<Italic/>}
               label="Italic"
-              className={editor.isActive('italic') ? 'is-active' : ''}
+              className={['large-icon', editor.isActive('italic') ? 'is-active' : '']}
               onClick={() => editor.chain().focus().toggleItalic().run()}
             />) : null }
             { settings.strikethrough ? (<IconButton
               icon={<Strikethrough/>}
               label="Strikethrough"
-              className={editor.isActive('strike') ? 'is-active' : ''}
+              className={['large-icon', editor.isActive('strike') ? 'is-active' : '']}
               onClick={() => editor.chain().focus().toggleStrike().run()}
             />) : null }
             { settings.underline ? (<IconButton
               icon={<Underline/>}
               label="Underline"
-              className={editor.isActive('underline') ? 'is-active' : ''}
+              className={['large-icon', editor.isActive('underline') ? 'is-active' : '']}
               onClick={() => editor.chain().focus().toggleUnderline().run()}
             />) : null }
             { settings.color ? (<IconButton
@@ -240,16 +240,19 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
             { settings.align.includes('left') ? (<IconButton
               icon={<AiOutlineAlignLeft/>}
               label="Align left"
+              className={['medium-icon']}
               onClick={() => editor.chain().focus().setTextAlign('left').run()}
             />) : null }
             { settings.align.includes('center') ? (<IconButton
               icon={<AiOutlineAlignCenter/>}
               label="Align center"
+              className={['medium-icon']}
               onClick={() => editor.chain().focus().setTextAlign('center').run()}
             />) : null }
             { settings.align.includes('right') ? (<IconButton
               icon={<AiOutlineAlignRight/>}
               label="Align right"
+              className={['medium-icon']}
               onClick={() => editor.chain().focus().setTextAlign('right').run()}
             />) : null }
           </IconButtonGroup>
@@ -258,13 +261,13 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
             { settings.lists.includes('ul') ? (<IconButton
               icon={<BulletList/>}
               label="Bullet list"
-              className={editor.isActive('bulletList') ? 'is-active' : ''}
+              className={['large-icon', editor.isActive('bulletList') ? 'is-active' : '']}
               onClick={() => editor.chain().focus().toggleBulletList().run()}
             />) : null }
             { settings.lists.includes('ol') ? (<IconButton
               icon={<NumberList/>}
               label="Ordered list"
-              className={editor.isActive('orderedList') ? 'is-active' : ''}
+              className={['large-icon', editor.isActive('orderedList') ? 'is-active' : '']}
               onClick={() => editor.chain().focus().toggleOrderedList().run()}
             />) : null }
           </IconButtonGroup>
@@ -274,13 +277,13 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
               { settings.columns.includes('two') ? (<IconButton
                 icon={<BsLayoutSplit />}
                 label="Two columns"
-                className={editor.isActive({'cssColumns': '2'}) ? 'is-active' : ''}
+                className={['medium-icon', editor.isActive({'cssColumns': '2'}) ? 'is-active' : '']}
                 onClick={() => editor.chain().focus().toggleColumns(2).run()}
               />) : null }
               { settings.columns.includes('three') ? (<IconButton
                 icon={<BsLayoutThreeColumns />}
                 label="Three columns"
-                className={editor.isActive({'cssColumns': '3'}) ? 'is-active' : ''}
+                className={['medium-icon', editor.isActive({'cssColumns': '3'}) ? 'is-active' : '']}
                 onClick={() => editor.chain().focus().toggleColumns(3).run()}
               />) : null }
             </IconButtonGroup>
@@ -290,14 +293,14 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
             { settings.code ? (<IconButton
               icon={<Code/>}
               label="Code"
-              className={editor.isActive('codeBlock') ? 'is-active' : ''}
+              className={['large-icon', editor.isActive('codeBlock') ? 'is-active' : '']}
               onClick={() => editor.chain().focus().toggleCodeBlock().run()}
             />) : null }
 
             { settings.blockquote ? (<IconButton
               icon={<GrBlockQuote/>}
               label="Blockquote"
-              className={editor.isActive('blockquote') ? 'is-active' : ''}
+              className={['large-icon', editor.isActive('blockquote') ? 'is-active' : '']}
               onClick={() => editor.chain().focus().toggleBlockquote().run()}
             />) : null }
 
@@ -334,14 +337,14 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
             { settings.links.enabled ? (<IconButton
               icon={<Link/>}
               label="Link"
-              className={editor.isActive('link') ? 'is-active' : ''}
+              className={['medium-icon', editor.isActive('link') ? 'is-active' : '']}
               onClick={() => openLinkDialog()}
             />) : null }
 
             { settings.image.enabled ? (<IconButton
               icon={<Landscape/>}
               label={editor.isActive('image') ? 'Change image' : 'Insert image'}
-              className={editor.isActive('image') && !editor.getAttributes('image').src.includes(';base64') ? 'is-active' : ''}
+              className={['medium-icon', editor.isActive('image') && !editor.getAttributes('image').src.includes(';base64') ? 'is-active' : '']}
               onClick={toggleMediaLib}
             />) : null }
 
@@ -375,27 +378,28 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
             { settings.image.allowBase64 ? (<IconButton
               icon={<FaImage/>}
               label={editor.isActive('image') ? 'Change image' : 'Insert base64 image'}
-              className={editor.isActive('image') && editor.getAttributes('image').src.includes(';base64') ? 'is-active' : ''}
+              className={['medium-icon', editor.isActive('image') && editor.getAttributes('image').src.includes(';base64') ? 'is-active' : '']}
               onClick={openBase64Dialog}
             />) : null }
 
             { settings.table ? (<IconButton
               icon={<AiOutlineTable/>}
               label="Table"
-              className={editor.isActive('table') ? 'is-active' : ''}
+              className={['large-icon', editor.isActive('table') ? 'is-active' : '']}
               onClick={() => editor.chain().focus().insertTable({cols: 3, row: 3, withHeaderRow: false}).run()}
             />) : null }
 
             { settings.youtube.enabled ? (<IconButton
               icon={<AiFillYoutube/>}
               label="YouTube"
-              className={editor.isActive('youtube') ? 'is-active' : ''}
+              className={['large-icon', editor.isActive('youtube') ? 'is-active' : '']}
               onClick={() => setIsVisibleYouTubeDialog(true)}
             />) : null }
 
             { settings.horizontal ? (<IconButton
               icon={<AiOutlineLine/>}
               label="Horizontal line"
+              className={['large-icon']}
               onClick={() => editor.chain().focus().setHorizontalRule().run()}
             />) : null }
 
