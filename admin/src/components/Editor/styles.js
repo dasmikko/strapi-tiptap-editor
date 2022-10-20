@@ -129,7 +129,7 @@ export default styled(Box)`
     pre {
       background: #0d0d0d;
       color: #fff;
-      font-family: "JetBrainsMono", monospace;
+      font-family: monospace;
       padding: 0.75rem 1rem;
       border-radius: 0.5rem;
 
