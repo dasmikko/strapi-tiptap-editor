@@ -140,6 +140,7 @@ const Editor = ({onChange, name, value, editor, disabled, settings}) => {
       alt: asset.alt, 
       ...(asset.width && {width: asset.width}),
       ...(asset.height && {height: asset.height}),
+      ...(asset.caption === 'lazy' && {loading: 'lazy'}),
     }
     if (!forceInsert && editor.isActive('image')) {
       assets.map(asset => {
