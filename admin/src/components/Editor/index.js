@@ -134,24 +134,25 @@ const Editor = ({onChange, name, value, editor, disabled, settings}) => {
   const [forceInsert, setForceInsert] = useState(false);
   const handleToggleMediaLib = () => setMediaLibVisible(prev => !prev);
 
+  const getUpdatedImage = (asset) => ({
+    src: asset.url, 
+    alt: asset.alt, 
+    ...(asset.width && {width: asset.width}),
+    ...(asset.height && {height: asset.height}),
+    ...(asset.caption === 'lazy' && {loading: 'lazy'}),
+  })
+
   const handleChangeAssets = assets => {
-    const updatedImage = {
-      src: asset.url, 
-      alt: asset.alt, 
-      ...(asset.width && {width: asset.width}),
-      ...(asset.height && {height: asset.height}),
-      ...(asset.caption === 'lazy' && {loading: 'lazy'}),
-    }
     if (!forceInsert && editor.isActive('image')) {
       assets.map(asset => {
         if (asset.mime.includes('image')) {
-          editor.chain().focus().setImage(updatedImage).run()
+          editor.chain().focus().setImage(getUpdatedImage(asset)).run()
         }
       })
     } else {
       assets.map(asset => {
         if (asset.mime.includes('image')) {
-          editor.commands.setImage(updatedImage)
+          editor.commands.setImage(getUpdatedImage(asset))
         }
       });
     }
