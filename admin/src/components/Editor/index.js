@@ -135,16 +135,17 @@ const Editor = ({onChange, name, value, editor, disabled, settings}) => {
   const handleToggleMediaLib = () => setMediaLibVisible(prev => !prev);
 
   const handleChangeAssets = assets => {
+    const updatedImage = {src: asset.url, alt: asset.alt}
     if (!forceInsert && editor.isActive('image')) {
       assets.map(asset => {
         if (asset.mime.includes('image')) {
-          editor.chain().focus().setImage({src: asset.url}).run()
+          editor.chain().focus().setImage(updatedImage).run()
         }
       })
     } else {
       assets.map(asset => {
         if (asset.mime.includes('image')) {
-          editor.commands.setImage({src: asset.url, alt: asset.alt})
+          editor.commands.setImage(updatedImage)
         }
       });
     }
