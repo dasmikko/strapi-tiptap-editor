@@ -8,6 +8,7 @@ const MediaLib = ({ isOpen, onChange, onToggle }) => {
 
     const handleSelectAssets = files => {
         const formattedFiles = files.map(f => ({
+            ...f,
             alt: f.alternativeText || f.name,
             url: prefixFileUrlWithBackendUrl(f.url),
             mime: f.mime,

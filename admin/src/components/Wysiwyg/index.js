@@ -34,6 +34,7 @@ import OrderedListExtension from "@tiptap/extension-ordered-list"
 import BulletListExtension from '@tiptap/extension-bullet-list'
 import ListItemExtension from '@tiptap/extension-list-item'
 import GapcursorExtension from '@tiptap/extension-gapcursor'
+import History from '@tiptap/extension-history'
 import BlockquoteExtension from '@tiptap/extension-blockquote'
 import CodeBlockExtension from '@tiptap/extension-code-block'
 import DocumentExtension from '@tiptap/extension-document'
@@ -159,7 +160,23 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
       }) : null,
 
       // Images
-      settings.image.enabled ? ImageExtension.configure({
+      settings.image.enabled ? ImageExtension.extend({
+        addAttributes() {
+          return {
+            ...this.parent?.(),
+            width: { default: null },
+            height: { default: null },
+            loading: { default: null },
+            renderHTML: (attributes) => {
+              return {
+                width: attributes.width,
+                height: attributes.height,
+                loading: attributes.loading
+              };
+            }
+          };
+        }
+      }).configure({
         inline: settings.image.inline,
         allowBase64: settings.image.allowBase64,
       }) : null,
@@ -182,6 +199,7 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
       settings.youtube.enabled ? YouTubeExtension.configure({
         inline: false,
       }) : null,
+      History
     ],
     parseOptions: {
       preserveWhitespace: 'full',
