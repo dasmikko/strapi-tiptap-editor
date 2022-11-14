@@ -166,7 +166,7 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
             width: { default: null },
             height: { default: null },
             loading: { default: null },
-            renderHTML: (attributes: any) => {
+            renderHTML: (attributes) => {
               return {
                 width: attributes.width,
                 height: attributes.height,
