@@ -139,7 +139,7 @@ const Editor = ({onChange, name, value, editor, disabled, settings}) => {
     alt: asset.alt, 
     ...(asset.width && {width: asset.width}),
     ...(asset.height && {height: asset.height}),
-    ...(asset.caption === 'lazy' || asset.name?.includes('lazy') && {loading: 'lazy'}),
+    ...(asset.url?.includes('lazy') || asset.caption === 'lazy' && { loading: 'lazy' }),
   })
 
   const handleChangeAssets = assets => {
