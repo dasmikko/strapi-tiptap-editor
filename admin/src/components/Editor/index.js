@@ -135,7 +135,12 @@ const Editor = ({onChange, name, value, editor, disabled, settings}) => {
   const handleToggleMediaLib = () => setMediaLibVisible(prev => !prev);
 
   const handleChangeAssets = assets => {
-    const updatedImage = {src: asset.url, alt: asset.alt}
+    const updatedImage = {
+      src: asset.url, 
+      alt: asset.alt, 
+      ...(asset.width && {width: asset.width}),
+      ...(asset.height && {height: asset.height}),
+    }
     if (!forceInsert && editor.isActive('image')) {
       assets.map(asset => {
         if (asset.mime.includes('image')) {
