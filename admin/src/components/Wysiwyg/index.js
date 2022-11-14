@@ -159,7 +159,23 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
       }) : null,
 
       // Images
-      settings.image.enabled ? ImageExtension.configure({
+      settings.image.enabled ? ImageExtension.extend({
+        addAttributes() {
+          return {
+            ...this.parent?.(),
+            width: { default: null },
+            height: { default: null },
+            loading: { default: null },
+            renderHTML: (attributes: any) => {
+              return {
+                width: attributes.width,
+                height: attributes.height,
+                loading: attributes.loading
+              };
+            }
+          };
+        }
+      }).configure({
         inline: settings.image.inline,
         allowBase64: settings.image.allowBase64,
       }) : null,
