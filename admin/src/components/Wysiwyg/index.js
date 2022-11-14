@@ -34,6 +34,7 @@ import OrderedListExtension from "@tiptap/extension-ordered-list"
 import BulletListExtension from '@tiptap/extension-bullet-list'
 import ListItemExtension from '@tiptap/extension-list-item'
 import GapcursorExtension from '@tiptap/extension-gapcursor'
+import History from '@tiptap/extension-history'
 import BlockquoteExtension from '@tiptap/extension-blockquote'
 import CodeBlockExtension from '@tiptap/extension-code-block'
 import DocumentExtension from '@tiptap/extension-document'
@@ -198,6 +199,7 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
       settings.youtube.enabled ? YouTubeExtension.configure({
         inline: false,
       }) : null,
+      History
     ],
     parseOptions: {
       preserveWhitespace: 'full',
