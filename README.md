@@ -19,7 +19,7 @@ The main reason was, that I thought that the built-in WYSIWYG editor in strapi c
 ## Requirements
 It's build for Strapi **v4**. 
 
-It has been tested to work with **v4.1.1** and I assume it should keep working with later versions.
+It has been tested to work with **v4.5.5** and I assume it should keep working with later versions.
 
 
 ## Cool! But how do I use it?
