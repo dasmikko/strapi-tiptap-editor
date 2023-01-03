@@ -135,8 +135,8 @@ const Editor = ({onChange, name, value, editor, disabled, settings}) => {
   const handleToggleMediaLib = () => setMediaLibVisible(prev => !prev);
 
   const getUpdatedImage = (asset) => ({
-    src: asset.url, 
-    alt: asset.alt, 
+    src: asset.url,
+    alt: asset.alt,
     ...(asset.width && {width: asset.width}),
     ...(asset.height && {height: asset.height}),
     ...(asset.url?.includes('lazy') || asset.caption === 'lazy' && { loading: 'lazy' }),
@@ -199,7 +199,10 @@ Editor.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   editor: PropTypes.object.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
   disabled: PropTypes.bool,
   settings: PropTypes.object
 };

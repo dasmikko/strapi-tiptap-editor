@@ -205,23 +205,39 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
       preserveWhitespace: 'full',
     },
     onUpdate(ctx) {
-      onChange({target: {name, value: ctx.editor.getHTML()}})
+      if (settings.other.saveJson) {
+        onChange({target: {name, value: JSON.stringify(ctx.editor.getJSON())}})
+      } else {
+        onChange({target: {name, value: ctx.editor.getHTML()}})
+      }
+
+
     },
   })
 
   useEffect(() => {
     if (editor === null) return
     if (currentContent === '') {
-      setCurrentContent(value)
-      editor.commands.setContent(value, false)
+      // Content can be 2 things: JSON or String. Be able to display both things.
+
+      try {
+        // If content is saved as json, parse it
+        const json = JSON.parse(value)
+        setCurrentContent(value)
+        editor.commands.setContent(json, false)
+      } catch (e) {
+        // Use value as is, the content hasn't been converted to json.
+        setCurrentContent(value)
+        editor.commands.setContent(value, false)
+      }
     }
   }, [editor])
 
   return (
-      <>
+      <Field required={required}>
         <Stack spacing={1}>
           <Box>
-            <FieldLabel action={labelAction} required={required}> {formatMessage(intlLabel)}</FieldLabel>
+            <FieldLabel action={labelAction}> {formatMessage(intlLabel)}</FieldLabel>
           </Box>
           {editor &&
             <Editor
@@ -245,7 +261,7 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
               </Typography>
           }
         </Stack>
-      </>
+      </Field>
   )
 }
 
@@ -274,7 +290,10 @@ Wysiwyg.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
   settings: PropTypes.object
 };
 

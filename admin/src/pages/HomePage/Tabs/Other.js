@@ -31,6 +31,28 @@ export default ({values, handleChange}) => {
             })}/>
         </Box>
       </GridLayout>
+
+      <Box marginTop={'2rem'} marginBottom={'1rem'}>
+      </Box>
+
+      <GridLayout>
+        <Box>
+          <ToggleInput
+            label="Save content as JSON"
+            hint="Save editor content as JSON instead of raw HTML. NOTE: You will have to save pages again, as changing this setting will NOT auto update you currently saved content"
+            size="S"
+            name="other.saveJson"
+            onLabel="Enabled"
+            offLabel="Disabled"
+            checked={values.other.saveJson}
+            onChange={e => handleChange({
+              target: {
+                name: 'other.saveJson',
+                value: !values.other.saveJson
+              }
+            })}/>
+        </Box>
+      </GridLayout>
     </Fragment>
   )
 }

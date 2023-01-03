@@ -31,6 +31,7 @@ module.exports = {
   },
   other: {
     wordcount: false,
+    saveJson: false,
   },
   youtube: {
     enabled: true,
