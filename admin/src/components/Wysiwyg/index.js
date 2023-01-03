@@ -140,7 +140,7 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
       settings.code ? CodeExtension : null,
       settings.blockquote ? BlockquoteExtension : null,
       settings.horizontal ? HorizontalRuleExtension : null,
-      settings.hardBreak ? HardBreakExtension : null,
+      settings.hardbreak ? HardBreakExtension : null,
 
       UnderlineExtension,
       TextAlignExtension.configure({
