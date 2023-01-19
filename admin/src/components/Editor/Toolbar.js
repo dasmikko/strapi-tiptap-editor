@@ -95,7 +95,7 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
   // Color picker
   const [colorPopoverVisible, setColorPopoverVisible] = useState(false);
   const [highlightPopoverVisible, setHighlightPopoverVisible] = useState(false);
-  const colorInputRef = useRef()
+  const colorInputRef = useRef();
   const highlightInputRef = useRef();
 
   const openLinkDialog = () => {
@@ -208,16 +208,16 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
               }}
             />) : null }
 
-            { settings.highlight ? (<IconButton
-              icon={<Pencil/>}
+            {settings.highlight ? (<IconButton
+              icon={<Pencil />}
               label="Highlight"
               onClick={() => {
                 setHighlightPopoverVisible(s => !s)
-                setTimeout(() => { 
+                setTimeout(() => {
                   highlightInputRef.current.value = editor.getAttributes('highlight').color
                 }, 10)
               }}
-              />) : null }
+            />) : null}
             {/* text color input dialog */}
             <Dialog onClose={() => setColorPopoverVisible(false)} title="Select color" isOpen={colorPopoverVisible}>
               <DialogBody>
@@ -253,7 +253,7 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
               <DialogBody>
                 <Stack spacing={2}>
                   <input
-                    style={{width: '100%', height: '2em'}}
+                    style={{ width: '100%', height: '2em' }}
                     type="color"
                     ref={highlightInputRef}
                   />
@@ -265,17 +265,17 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
                   editor.commands.unsetHighlight()
                 }}
                   variant="tertiary">
-                Remove color
+                  Remove color
                 </Button>
               } endAction={
                 <Button
                   onClick={() => {
-                    editor.chain().focus().toggleHighlight({ color: highlightInputRef.current.value}).run();
+                    editor.chain().focus().toggleHighlight({ color: highlightInputRef.current.value }).run();
                     setHighlightPopoverVisible(false)
                   }}
                   variant="success-light">
-                Change color
-              </Button>} />
+                  Change color
+                </Button>} />
             </Dialog>
           </IconButtonGroup>
 
