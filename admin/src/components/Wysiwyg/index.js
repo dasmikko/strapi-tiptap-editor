@@ -44,6 +44,7 @@ import HorizontalRuleExtension from '@tiptap/extension-horizontal-rule'
 import ParagraphExtension from '@tiptap/extension-paragraph'
 import TextExtension from '@tiptap/extension-text'
 import { Color as ColorExtension } from '@tiptap/extension-color'
+import HighlightExtension from '@tiptap/extension-highlight'
 import {mergeDeep} from "../../utils/merge";
 
 
@@ -148,7 +149,7 @@ const WysiwygContent = ({ name, onChange, value, intlLabel, labelAction, disable
       }),
       TextStyleExtension,
       settings.color ? ColorExtension : null,
-
+      settings.highlight ? HighlightExtension.configure({ multicolor: true }) : null,
       // Links
       settings.links.enabled ? LinkExtension.configure({
         autolink: settings.links.autolink,

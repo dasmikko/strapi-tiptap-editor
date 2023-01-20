@@ -7,6 +7,7 @@ module.exports = {
   code: true,
   blockquote: true,
   color: true,
+  highlight:true,
   align: ['left', 'center', 'right'],
   lists: ['ol', 'ul'],
   disableOrderedListShorthand: false,

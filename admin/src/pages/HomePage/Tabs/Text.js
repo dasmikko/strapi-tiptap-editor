@@ -184,6 +184,16 @@ export default ({errors, values, handleChange, isSubmitting}) => {
           checked={values.color}
           onChange={e => handleChange({target: {name: 'color', value: !values.color}})}/>
       </Box>
+        <Box>
+          <ToggleInput
+            label="Highlight"
+            name="highlight"
+            size="S"
+            onLabel="Enabled"
+            offLabel="Disabled"
+            checked={values.highlight}
+            onChange={e => handleChange({ target: { name: 'highlight', value: !values.highlight } })} />
+        </Box>
       </GridLayout>
 
       <Box marginTop={'2rem'} marginBottom={'1rem'}>
