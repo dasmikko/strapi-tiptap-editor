@@ -29,6 +29,13 @@ Luckily it's very easy to use. Just follow these instructions:
 # Install the dependency
 npm install strapi-tiptap-editor
 
+# Add the following to the webpack config (/src/admin/webpack.config.js)
+# This is due to tippy.js doesn't have an ES6 module, and a tiptap depencency imports it (thanks for the help @giu1io)
+config.plugins.push(new webpack.NormalModuleReplacementPlugin(
+  /^tippy\.js$/,
+  'tippy.js/dist/tippy-bundle.umd.min.js'
+))
+
 # Build the Strapi Admin
 npm run build
 ```
