@@ -27,7 +27,6 @@
   },
   "homepage": "https://github.com/dasmikko/strapi-tiptap-editor#readme",
   "dependencies": {
-    "@strapi/icons": "1.6.3",
     "@tiptap/core": "2.0.0-beta.220",
     "@tiptap/extension-blockquote": "2.0.0-beta.220",
     "@tiptap/extension-bold": "2.0.0-beta.220",
