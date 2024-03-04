@@ -66,7 +66,7 @@
     "@strapi/strapi": "^4.0.0"
   },
   "engines": {
-    "node": ">=12.x.x <=18.x.x",
+    "node": ">=18.x.x <=21.x.x",
     "npm": ">=6.0.0"
   }
 }
