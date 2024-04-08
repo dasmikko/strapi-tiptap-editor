@@ -9,7 +9,7 @@ A drop-in replacement for the strapi editor.
 ![Screenshot of the editor](./screenshot.png?raw=true "Screenshot")
 
 ## Notice!
-This project isn't actively maintained, as I want to move away from Strapi. If you are interested in taking over this project, feel free to contact me.
+**This project isn't actively maintained, as I want to move away from Strapi. If you are interested in taking over this project, feel free to contact me.**
 
 ## What is this?
 It's a dead simple, and easy to use drop-in replacement for the built-in strapi WYSIWYG editor. It's build upon the [TipTap editor](https://tiptap.dev/).
