@@ -63,10 +63,14 @@
     "react-icons": "4.7.1"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^4.0.0"
+    "@strapi/strapi": "^5.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.0.0",
+    "styled-components": "^6.0.0"
   },
   "engines": {
-    "node": ">=18.x.x <=21.x.x",
+    "node": ">=18.x.x <=22.x.x",
     "npm": ">=6.0.0"
   }
 }

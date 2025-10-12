@@ -28,7 +28,25 @@ export default {
       ]
     );
 
-    app.addFields({ type: 'wysiwyg', Component: Wysiwyg });
+    // Register custom field for wysiwyg in Strapi v5
+    app.customFields.register({
+      name: 'wysiwyg',
+      pluginId: pluginId,
+      type: 'richtext',
+      intlLabel: {
+        id: 'strapi-tiptap-editor.label',
+        defaultMessage: 'Rich Text (TipTap)',
+      },
+      intlDescription: {
+        id: 'strapi-tiptap-editor.description',
+        defaultMessage: 'A rich text editor powered by TipTap',
+      },
+      components: {
+        Input: async () => ({
+          default: Wysiwyg,
+        }),
+      },
+    });
 
     app.registerPlugin({
       id: pluginId,

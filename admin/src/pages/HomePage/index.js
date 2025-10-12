@@ -6,7 +6,7 @@
 
 import React, {memo, Fragment} from 'react'
 import {useQuery, useMutation, useQueryClient} from 'react-query'
-import {getSettings, updateSettings} from '../../../../utils/api.js'
+import {getSettings, updateSettings, initFetchClient} from '../../../../utils/api.js'
 
 // Fields and UI
 import {Main} from '@strapi/design-system/Main'
@@ -15,12 +15,9 @@ import {Button} from '@strapi/design-system/Button'
 import {Box} from '@strapi/design-system/Box'
 import {Tabs, Tab, TabGroup, TabPanels, TabPanel} from '@strapi/design-system/Tabs'
 import {Formik} from 'formik'
-import {
-  Form,
-  LoadingIndicatorPage,
-  useNotification,
-  useOverlayBlocker
-} from '@strapi/helper-plugin'
+import {Form} from '@strapi/design-system'
+import {Page, useNotification, useFetchClient} from '@strapi/strapi/admin'
+import {useIntl} from 'react-intl'
 
 import defaultSettings from '../../../../utils/defaults.js'
 
@@ -35,8 +32,14 @@ import OtherTabContent from './Tabs/Other.js'
 import { mergeDeep } from "../../utils/merge";
 
 const HomePage = (ctx) => {
-  const toggleNotification = useNotification()
-  const {lockApp, unlockApp} = useOverlayBlocker()
+  const {formatMessage} = useIntl()
+  const {toggleNotification} = useNotification()
+  const fetchClient = useFetchClient()
+
+  // Initialize fetch client for API utilities
+  React.useEffect(() => {
+    initFetchClient(fetchClient)
+  }, [fetchClient])
 
   const queryClient = useQueryClient()
   const query = useQuery('settings', getSettings)
@@ -46,31 +49,19 @@ const HomePage = (ctx) => {
       await queryClient.invalidateQueries('settings')
       toggleNotification({
         type: 'success',
-        message: {id: 'strapi-tiptap-editor-save-success', defaultMessage: 'Saved'}
+        message: formatMessage({id: 'strapi-tiptap-editor-save-success', defaultMessage: 'Saved'})
       })
-      unlockApp()
     },
     onError: async () => {
       toggleNotification({
-        type: 'warning',
-        message: {id: 'strapi-tiptap-editor-save-error', defaultMessage: 'Saved failed'}
+        type: 'danger',
+        message: formatMessage({id: 'strapi-tiptap-editor-save-error', defaultMessage: 'Save failed'})
       })
-      unlockApp()
     }
   })
 
   if (query.isLoading) {
-    return (
-      <Main aria-busy="true">
-        <HeaderLayout
-          title={'Strapi TipTap Editor settings'}
-          subtitle={'Change how the editor should behave'}
-        />
-        <ContentLayout>
-          <LoadingIndicatorPage/>
-        </ContentLayout>
-      </Main>
-    )
+    return <Page.Loading />
   }
 
   // Merge saved settings with default values, in case new ones are added
@@ -81,7 +72,6 @@ const HomePage = (ctx) => {
       <Formik
         initialValues={mergedSettings}
         onSubmit={async (values) => {
-          lockApp()
           await mutation.mutateAsync(values)
         }}>
         {({errors, values, handleChange, isSubmitting}) => {

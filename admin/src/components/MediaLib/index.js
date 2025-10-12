@@ -1,23 +1,29 @@
 import React from 'react';
-import { prefixFileUrlWithBackendUrl, useLibrary } from '@strapi/helper-plugin';
+import { useStrapiApp } from '@strapi/strapi/admin';
 import PropTypes from 'prop-types';
 
 const MediaLib = ({ isOpen, onChange, onToggle }) => {
-    const { components } = useLibrary();
-    const MediaLibraryDialog = components['media-library'];
+    const components = useStrapiApp('MediaLib', (state) => state.components);
+    const MediaLibraryDialog = components?.['media-library'];
 
     const handleSelectAssets = files => {
-        const formattedFiles = files.map(f => ({
-            ...f,
-            alt: f.alternativeText || f.name,
-            url: prefixFileUrlWithBackendUrl(f.url),
-            mime: f.mime,
-        }));
+        const formattedFiles = files.map(f => {
+            // Construct full URL from backend
+            const baseUrl = window.strapi?.backendURL || '';
+            const url = f.url?.startsWith('http') ? f.url : `${baseUrl}${f.url}`;
+
+            return {
+                ...f,
+                alt: f.alternativeText || f.name,
+                url: url,
+                mime: f.mime,
+            };
+        });
 
         onChange(formattedFiles);
     };
 
-    if(!isOpen) {
+    if(!isOpen || !MediaLibraryDialog) {
         return null
     };
 

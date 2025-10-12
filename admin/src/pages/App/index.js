@@ -6,18 +6,18 @@
  */
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { NotFound } from '@strapi/helper-plugin';
+import { Routes, Route } from 'react-router-dom';
+import { Page } from '@strapi/strapi/admin';
 import pluginId from '../../pluginId';
 import HomePage from '../HomePage';
 
 const App = () => {
   return (
     <div>
-      <Switch>
-        <Route path={`/settings/${pluginId}`} component={HomePage} exact />
-        <Route component={NotFound} />
-      </Switch>
+      <Routes>
+        <Route path={`/settings/${pluginId}`} element={<HomePage />} />
+        <Route path="*" element={<Page.Error />} />
+      </Routes>
     </div>
   );
 };

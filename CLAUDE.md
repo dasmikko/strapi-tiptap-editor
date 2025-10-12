@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Strapi v4 plugin that provides a drop-in replacement for the built-in WYSIWYG editor using TipTap. It saves content as plain HTML (or optionally JSON) and integrates with Strapi's admin panel and media library.
+This is a Strapi v5 plugin that provides a custom field replacement for the built-in WYSIWYG editor using TipTap. It saves content as plain HTML (or optionally JSON) and integrates with Strapi's admin panel and media library.
+
+**Migration Status**: This plugin has been migrated from Strapi v4 to v5 on the `v5-migration` branch.
 
 ## Key Commands
 
@@ -30,7 +32,8 @@ The plugin follows Strapi v4 plugin architecture with separate admin and server 
 The admin panel integration is split into three main React components:
 
 1. **Wysiwyg component** (`admin/src/components/Wysiwyg/index.js`)
-   - Main entry point registered via `app.addFields({ type: 'wysiwyg', Component: Wysiwyg })`
+   - Main entry point registered via `app.customFields.register()` (Strapi v5 API)
+   - Uses `useFetchClient` hook to initialize API client for settings retrieval
    - Fetches settings from server and merges with defaults
    - Initializes TipTap editor with configurable extensions based on settings
    - Handles both HTML and JSON content formats (auto-detects on load)
@@ -71,15 +74,17 @@ The admin panel integration is split into three main React components:
 
 ### Key Integration Points
 
-**Settings registration** (`admin/src/index.js:16-29`)
+**Settings registration** (`admin/src/index.js`)
 - Creates settings section at `/settings/strapi-tiptap-editor`
 - Lazy loads settings page component via dynamic import
 
-**Field registration** (`admin/src/index.js:31`)
-- Replaces Strapi's default wysiwyg field type with TipTap editor
+**Custom field registration** (`admin/src/index.js`)
+- Registers as a custom field using `app.customFields.register()` (Strapi v5)
+- Type: `richtext`, Name: `wysiwyg`, PluginId: `strapi-tiptap-editor`
 
 **Media library integration** (`admin/src/components/MediaLib/index.js`)
-- Wrapper around Strapi's prefab MediaLib component
+- Uses `useStrapiApp` hook to access media-library component (Strapi v5)
+- Constructs full URLs for images using window.strapi.backendURL
 - Handles image selection and insertion into editor
 - Supports updating existing images or inserting new ones
 
@@ -108,7 +113,41 @@ Extensions are conditionally loaded based on settings. Key configurable features
 ## Important Notes
 
 - **Webpack configuration required**: Host projects must add `NormalModuleReplacementPlugin` for tippy.js to work (see README)
-- **Node compatibility**: Requires Node.js 18.x - 21.x
-- **Strapi version**: Built for Strapi v4 (tested with v4.5.5)
-- **Currently on v5-migration branch**: Working branch for Strapi v5 compatibility
+- **Node compatibility**: Requires Node.js 18.x - 22.x
+- **Strapi version**: Migrated to Strapi v5
+- **Currently on v5-migration branch**: This branch contains the v5 migration
 - **Maintenance status**: Project is not actively maintained per README notice
+
+## Strapi v5 Migration Changes
+
+### Breaking Changes Addressed
+
+1. **Custom Field Registration**: Changed from `app.addFields()` to `app.customFields.register()`
+2. **Helper Plugin Removal**: All `@strapi/helper-plugin` imports replaced with `@strapi/strapi/admin`
+3. **API Client**: Replaced `request` utility with `useFetchClient` hook pattern
+4. **Notifications**: Updated `useNotification` to return object with `toggleNotification` method
+5. **Overlay Blocker**: Removed `useOverlayBlocker` (no replacement available in v5)
+6. **Loading Component**: Changed from `LoadingIndicatorPage` to `Page.Loading`
+7. **Error Component**: Changed from `NotFound` to `Page.Error`
+8. **React Router**: Updated from v5 to v6 (Switch→Routes, component→element prop)
+9. **Media Library**: Changed from `useLibrary` to `useStrapiApp` hook
+10. **Peer Dependencies**: Added explicit dependencies for react, react-dom, react-router-dom, styled-components
+
+### API Changes
+
+**utils/api.js**:
+- Now uses `useFetchClient` from `@strapi/strapi/admin`
+- Requires initialization via `initFetchClient(client)` before use
+- Returns `response.data` explicitly from fetch client
+
+**admin/src/pages/HomePage/index.js**:
+- Uses `useFetchClient` and passes to `initFetchClient`
+- Notification messages must be strings (use `formatMessage()` instead of message objects)
+- Removed loading/unlocking UI blocking behavior
+
+**admin/src/components/Wysiwyg/index.js**:
+- Initializes fetch client on mount using `useEffect`
+
+**admin/src/components/MediaLib/index.js**:
+- Uses `useStrapiApp('MediaLib', (state) => state.components)` to access media library
+- Manually constructs full URLs using `window.strapi.backendURL`

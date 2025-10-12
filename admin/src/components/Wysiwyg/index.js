@@ -7,9 +7,10 @@ import { Typography } from '@strapi/design-system/Typography';
 import MediaLib from '../MediaLib/index.js';
 import Editor from '../Editor';
 import { useIntl } from 'react-intl';
-import {getSettings} from "../../../../utils/api";
+import {getSettings, initFetchClient} from "../../../../utils/api";
 import defaultSettings from "../../../../utils/defaults";
 import { useQuery } from 'react-query';
+import { useFetchClient } from '@strapi/strapi/admin';
 import Earth from "@strapi/icons/Earth"
 
 // Editor
@@ -50,6 +51,13 @@ import {mergeDeep} from "../../utils/merge";
 
 const Wysiwyg = (opts) => {
   const { name, onChange, value, intlLabel, labelAction, disabled, error, description, required } = opts
+  const fetchClient = useFetchClient()
+
+  // Initialize fetch client for API utilities
+  useEffect(() => {
+    initFetchClient(fetchClient)
+  }, [fetchClient])
+
   const {data: savedSettings, isLoading} = useQuery('settings', getSettings)
   const settings = mergeDeep(defaultSettings, savedSettings)
   if (isLoading) return null
