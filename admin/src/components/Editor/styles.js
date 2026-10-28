@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Box } from "@strapi/design-system/Box";
+import { Box } from "@strapi/design-system";
 
 
 export default styled(Box)`

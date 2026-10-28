@@ -20,9 +20,9 @@ It saves as plain HTML, making it easy to use with various frontends.
 The main reason was, that I thought that the built-in WYSIWYG editor in strapi could be better. I needed to support tables and css columns. Another requirement was also make it outputted pure html, and has a nice and easy to user interface. I don't want to keep toggling between editor mode and preview mode, just to see what I'm making.
 
 ## Requirements
-It's build for Strapi **v4**. 
+It's build for Strapi **v5**.
 
-It has been tested to work with **v4.5.5** and I assume it should keep working with later versions.
+If you are still on Strapi **v4**, use the `0.9.x` releases of this plugin (`npm install strapi-tiptap-editor@0.9`).
 
 
 ## Cool! But how do I use it?
@@ -32,22 +32,27 @@ Luckily it's very easy to use. Just follow these instructions:
 # Install the dependency
 npm install strapi-tiptap-editor
 
-# Add the following to the webpack config (/src/admin/webpack.config.js)
-# This is due to tippy.js doesn't have an ES6 module, and a tiptap depencency imports it (thanks for the help @giu1io)
-config.plugins.push(new webpack.NormalModuleReplacementPlugin(
-  /^tippy\.js$/,
-  'tippy.js/dist/tippy-bundle.umd.min.js'
-))
-
 # Build the Strapi Admin
 npm run build
 ```
+
+The editor replaces the built-in editor for every **Rich text (Markdown)** field. The older webpack workaround for `tippy.js` is no longer needed, as Strapi v5 builds the admin panel with Vite.
 
 You are now using the new editor!
 
 You can verify it, by looking at the plugins page inside Strapi
 
 ![Strapi plugin page](./screenshot2.png?raw=true "Screenshot")
+
+## Developing the plugin
+The plugin is built with the [Strapi Plugin SDK](https://github.com/strapi/sdk-plugin):
+
+```
+npm install
+npm run build        # build to ./dist
+npm run watch:link   # link into a local Strapi project while developing
+npm run verify       # check the package before publishing
+```
 
 ## I'm having issues, or have a suggestion!
 Ouch, that's no good if you have an issue!

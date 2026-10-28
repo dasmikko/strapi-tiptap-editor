@@ -1,5 +1,1 @@
-const pluginPkg = require('../../package.json');
-
-const pluginId = pluginPkg.name.replace(/^@strapi\/plugin-/i, '');
-
-module.exports = pluginId;
+export const PLUGIN_ID = 'strapi-tiptap-editor';
