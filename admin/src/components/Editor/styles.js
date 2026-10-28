@@ -24,32 +24,18 @@ export default styled(Box)`
         rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
     }
 
-    button {
-
-      &.medium-icon {
-        padding: 7px;
-
-        svg {
-          height: 100%;
-          width: 100%;
-        }
-      }
-
-      &.large-icon {
-        padding: 6px;
-
-        svg {
-          height: 100%;
-          width: 100%;
-        }
-      }
-
+    button svg {
+      /* Strapi icons default to 1.6rem, react-icons to 1em. Make them all match. */
+      width: 1.6rem;
+      height: 1.6rem;
     }
   }
 
   .ProseMirror {
     outline: none;
-    line-height: 1.25rem;
+    /* Strapi v5 sets the root font-size to 62.5%, so rem is 10px */
+    font-size: 1.4rem;
+    line-height: 1.5;
     color: ${({ theme }) => theme.colors.neutral800};
     min-height: 80px;
 
@@ -132,7 +118,7 @@ export default styled(Box)`
         color: inherit;
         padding: 0;
         background: none;
-        font-size: 0.8rem;
+        font-size: 0.9em;
       }
     }
 

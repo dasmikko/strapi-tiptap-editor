@@ -20,7 +20,6 @@ import {BsLayoutThreeColumns} from "react-icons/bs"
 import {GrBlockQuote} from "react-icons/gr"
 import {AiFillYoutube, AiOutlineLine} from "react-icons/ai"
 import {FaImage} from "react-icons/fa"
-import { IconContext } from "react-icons"
 
 // Layout
 import {
@@ -329,24 +328,22 @@ export const Toolbar = ({ editor, toggleMediaLib, settings }) => {
             </IconButton>) : null }
           </IconButtonGroup>
 
-          <IconContext.Provider value={{ color: "#32324D"}}>
-            <IconButtonGroup className="button-group">
-              { settings.columns.includes('two') ? (<IconButton
-                label="Two columns"
-                className={['medium-icon', editor.isActive({'cssColumns': '2'}) ? 'is-active' : ''].join(' ')}
-                onClick={() => editor.chain().focus().toggleColumns(2).run()}
-              >
-                <BsLayoutSplit />
-              </IconButton>) : null }
-              { settings.columns.includes('three') ? (<IconButton
-                label="Three columns"
-                className={['medium-icon', editor.isActive({'cssColumns': '3'}) ? 'is-active' : ''].join(' ')}
-                onClick={() => editor.chain().focus().toggleColumns(3).run()}
-              >
-                <BsLayoutThreeColumns />
-              </IconButton>) : null }
-            </IconButtonGroup>
-          </IconContext.Provider>
+          <IconButtonGroup className="button-group">
+            { settings.columns.includes('two') ? (<IconButton
+              label="Two columns"
+              className={['medium-icon', editor.isActive({'cssColumns': '2'}) ? 'is-active' : ''].join(' ')}
+              onClick={() => editor.chain().focus().toggleColumns(2).run()}
+            >
+              <BsLayoutSplit />
+            </IconButton>) : null }
+            { settings.columns.includes('three') ? (<IconButton
+              label="Three columns"
+              className={['medium-icon', editor.isActive({'cssColumns': '3'}) ? 'is-active' : ''].join(' ')}
+              onClick={() => editor.chain().focus().toggleColumns(3).run()}
+            >
+              <BsLayoutThreeColumns />
+            </IconButton>) : null }
+          </IconButtonGroup>
 
           <IconButtonGroup className="button-group">
             { settings.code ? (<IconButton
