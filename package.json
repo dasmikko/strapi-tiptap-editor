@@ -40,7 +40,9 @@
     "build": "strapi-plugin build",
     "watch": "strapi-plugin watch",
     "watch:link": "strapi-plugin watch:link",
-    "verify": "strapi-plugin verify"
+    "verify": "strapi-plugin verify",
+    "prepare": "strapi-plugin build",
+    "prepublishOnly": "npm run verify"
   },
   "dependencies": {
     "@tiptap/core": "^2.27.3",
