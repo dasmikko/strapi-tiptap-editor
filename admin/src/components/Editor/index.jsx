@@ -1,7 +1,8 @@
 import React, {useState, Fragment} from 'react';
 
 // TipTap Editor
-import {EditorContent, BubbleMenu} from '@tiptap/react'
+import {EditorContent} from '@tiptap/react'
+import {BubbleMenu} from '@tiptap/react/menus'
 import {Toolbar} from "./Toolbar";
 
 // Media library
@@ -114,7 +115,7 @@ const BubbleMenuComponent = ({editor, toggleMediaLib}) => {
     }
 
     return (
-      <BubbleMenu editor={editor} tippyOptions={{zIndex: 2, maxWidth: '450px'}}>
+      <BubbleMenu editor={editor} style={{zIndex: 2, maxWidth: '450px'}}>
         {menuBars.length ? (
           <Flex padding={2} className="menu-bar floating" style={{flexWrap: 'wrap'}}>
             {/* Render menu bars */}

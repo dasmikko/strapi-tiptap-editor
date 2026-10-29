@@ -11,22 +11,28 @@ import UnderlineExtension from '@tiptap/extension-underline'
 import LinkExtension from '@tiptap/extension-link'
 import ImageExtension from '@tiptap/extension-image'
 import TextAlignExtension from '@tiptap/extension-text-align'
-import TableExtension from '@tiptap/extension-table'
-import TableRowExtension from '@tiptap/extension-table-row'
-import TableCellExtension from '@tiptap/extension-table-cell'
-import TableHeaderExtension from '@tiptap/extension-table-header'
-import TextStyleExtension from '@tiptap/extension-text-style'
-import CharacterCountExtension from '@tiptap/extension-character-count'
+import {
+  Table as TableExtension,
+  TableRow as TableRowExtension,
+  TableCell as TableCellExtension,
+  TableHeader as TableHeaderExtension,
+} from '@tiptap/extension-table'
+import { TextStyle as TextStyleExtension, Color as ColorExtension } from '@tiptap/extension-text-style'
 import YouTubeExtension from '@tiptap/extension-youtube'
 import CodeExtension from '@tiptap/extension-code'
 import BoldExtension from '@tiptap/extension-bold'
 import ItalicExtension from '@tiptap/extension-italic'
 import StrikeExtension from '@tiptap/extension-strike'
-import OrderedListExtension from "@tiptap/extension-ordered-list"
-import BulletListExtension from '@tiptap/extension-bullet-list'
-import ListItemExtension from '@tiptap/extension-list-item'
-import GapcursorExtension from '@tiptap/extension-gapcursor'
-import History from '@tiptap/extension-history'
+import {
+  OrderedList as OrderedListExtension,
+  BulletList as BulletListExtension,
+  ListItem as ListItemExtension,
+} from '@tiptap/extension-list'
+import {
+  CharacterCount as CharacterCountExtension,
+  Gapcursor as GapcursorExtension,
+  UndoRedo as UndoRedoExtension,
+} from '@tiptap/extensions'
 import BlockquoteExtension from '@tiptap/extension-blockquote'
 import CodeBlockExtension from '@tiptap/extension-code-block'
 import DocumentExtension from '@tiptap/extension-document'
@@ -35,7 +41,6 @@ import HeadingExtension from '@tiptap/extension-heading'
 import HorizontalRuleExtension from '@tiptap/extension-horizontal-rule'
 import ParagraphExtension from '@tiptap/extension-paragraph'
 import TextExtension from '@tiptap/extension-text'
-import { Color as ColorExtension } from '@tiptap/extension-color'
 import HighlightExtension from '@tiptap/extension-highlight'
 
 
@@ -190,8 +195,10 @@ const WysiwygContent = ({ name, onChange, value, disabled, settings }) => {
       settings.youtube.enabled ? YouTubeExtension.configure({
         inline: false,
       }) : null,
-      History
+      UndoRedoExtension
     ].filter(Boolean), // Disabled extensions are null
+    // The toolbar and word count read editor state while rendering
+    shouldRerenderOnTransaction: true,
     parseOptions: {
       preserveWhitespace: 'full',
     },
@@ -216,11 +223,11 @@ const WysiwygContent = ({ name, onChange, value, disabled, settings }) => {
         // If content is saved as json, parse it
         const json = JSON.parse(value)
         setCurrentContent(value)
-        editor.commands.setContent(json, false)
+        editor.commands.setContent(json, { emitUpdate: false })
       } catch (e) {
         // Use value as is, the content hasn't been converted to json.
         setCurrentContent(value)
-        editor.commands.setContent(value, false)
+        editor.commands.setContent(value, { emitUpdate: false })
       }
     }
   }, [editor])
