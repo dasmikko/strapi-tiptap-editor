@@ -131,7 +131,6 @@ dist
 
 .idea
 
-package-lock.json
 
 .npmrc
 
